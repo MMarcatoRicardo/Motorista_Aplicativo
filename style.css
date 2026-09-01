@@ -1,0 +1,139 @@
+/* ============================================================
+   Rota Certa — folha de estilo compartilhada
+   Mesmos tokens da calculadora, para o site inteiro parecer
+   um produto só. Editada pelo líder; as páginas apenas usam.
+   ============================================================ */
+
+:root{
+  --bg:#F2F4F5;
+  --surface:#FFFFFF;
+  --surface-2:#E9EDEF;
+  --ink:#131A1E;
+  --ink-2:#41525A;
+  --ink-3:#6B7D86;
+  --line:#D6DEE1;
+  --line-strong:#B6C3C8;
+
+  --alugar:#0090A0;
+  --proprio:#C2410C;
+  --alugar-wash:rgba(0,144,160,.10);
+  --proprio-wash:rgba(194,65,12,.10);
+
+  --bom:#1E7A47;
+  --alerta:#9A6206;
+  --faixa:#E3B01F;
+  --focus:#0090A0;
+
+  --r:6px;
+  --shadow:0 1px 2px rgba(15,25,30,.05), 0 6px 20px -12px rgba(15,25,30,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1418; --surface:#141B21; --surface-2:#1C252C;
+    --ink:#E9EEF0; --ink-2:#AEBDC4; --ink-3:#84969E;
+    --line:#26323A; --line-strong:#3A4A54;
+    --alugar:#0FA3B1; --proprio:#DB7526;
+    --alugar-wash:rgba(15,163,177,.14); --proprio-wash:rgba(219,117,38,.14);
+    --bom:#4CAF7A; --alerta:#D8A63E; --faixa:#D8AE2E; --focus:#2FBACA;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1418; --surface:#141B21; --surface-2:#1C252C;
+  --ink:#E9EEF0; --ink-2:#AEBDC4; --ink-3:#84969E;
+  --line:#26323A; --line-strong:#3A4A54;
+  --alugar:#0FA3B1; --proprio:#DB7526;
+  --alugar-wash:rgba(15,163,177,.14); --proprio-wash:rgba(219,117,38,.14);
+  --bom:#4CAF7A; --alerta:#D8A63E; --faixa:#D8AE2E; --focus:#2FBACA;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Barlow","Segoe UI",system-ui,sans-serif;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:var(--alugar)}
+:focus-visible{outline:2px solid var(--focus); outline-offset:2px}
+
+/* ---------- cabeçalho e navegação ---------- */
+.topo{position:sticky; top:0; z-index:20; background:var(--surface); border-bottom:1px solid var(--line)}
+.topo-in{max-width:1040px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.logo{width:26px; height:26px; flex:none; color:var(--ink)}
+.marca{font-family:"Barlow Condensed","Barlow",sans-serif; font-weight:700; font-size:21px;
+  letter-spacing:.02em; text-transform:uppercase; line-height:1; margin:0}
+.marca small{display:block; font-family:"Barlow",sans-serif; font-weight:500; font-size:11px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-top:3px}
+.nav{margin-left:auto; display:flex; gap:4px; flex-wrap:wrap}
+.nav a{
+  padding:8px 12px; border-radius:var(--r); text-decoration:none;
+  color:var(--ink-2); font-size:14px; font-weight:500;
+}
+.nav a:hover{background:var(--surface-2); color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--ink); color:var(--surface); font-weight:600}
+
+/* ---------- estrutura ---------- */
+.wrap{max-width:1040px; margin:0 auto; padding:44px 20px 80px}
+.wrap.estreito{max-width:760px}
+
+.olho{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:0 0 8px}
+h1,h2,h3,h4{font-family:"Barlow Condensed","Barlow",sans-serif; font-weight:700;
+  letter-spacing:.01em; text-wrap:balance; margin:0}
+h1{font-size:clamp(34px,7vw,54px); line-height:1.02; margin-bottom:16px}
+h2{font-size:clamp(26px,4.5vw,34px); line-height:1.08; text-transform:uppercase; margin-bottom:10px}
+h3{font-size:20px; text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px}
+p{margin:0 0 16px; max-width:66ch}
+.lead{font-size:clamp(17px,2.4vw,20px); color:var(--ink-2); max-width:60ch}
+.secao{margin-top:56px}
+.secao:first-of-type{margin-top:0}
+
+/* ---------- cartões ---------- */
+.cartao{background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:22px; box-shadow:var(--shadow)}
+.grade{display:grid; gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-block; padding:14px 24px; border-radius:var(--r); border:1px solid transparent;
+  background:var(--ink); color:var(--surface); text-decoration:none;
+  font-weight:600; font-size:16px; cursor:pointer; font-family:inherit;
+}
+.btn:hover{opacity:.9}
+.btn.vazio{background:none; border-color:var(--line-strong); color:var(--ink)}
+.btn.vazio:hover{background:var(--surface-2); opacity:1}
+.botoes{display:flex; gap:12px; flex-wrap:wrap; margin-top:24px}
+
+/* ---------- números e destaques ---------- */
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.selo{
+  display:inline-flex; align-items:center; gap:7px; padding:5px 12px; border-radius:99px;
+  background:var(--alugar-wash); color:var(--alugar); font-size:11.5px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; margin-bottom:16px;
+}
+.marcador{
+  flex:none; width:34px; height:34px; border-radius:var(--r);
+  background:var(--surface-2); display:grid; place-items:center; font-size:17px;
+}
+.nota{border-left:3px solid var(--line-strong); padding:4px 0 4px 14px; color:var(--ink-2); font-size:14.5px}
+
+/* ---------- tabelas ---------- */
+.tab-cx{overflow-x:auto}
+table{width:100%; border-collapse:collapse; font-size:14.5px; min-width:420px}
+th,td{padding:11px 12px; text-align:left; border-bottom:1px solid var(--line)}
+thead th{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3);
+  font-weight:600; border-bottom:1px solid var(--line-strong)}
+
+/* ---------- rodapé ---------- */
+.rodape{border-top:1px solid var(--line); background:var(--surface)}
+.rodape-in{max-width:1040px; margin:0 auto; padding:26px 20px; color:var(--ink-3); font-size:13.5px}
+.rodape-in p{margin:0 0 6px; max-width:none}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important; animation:none !important}
+}
