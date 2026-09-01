@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato — Rota Certa</title>
+<meta name="description" content="Links de teste, repositório, tecnologias utilizadas e formulário de contato do projeto Rota Certa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .campo{margin-bottom:16px}
+  .campo label{display:block; font-size:14px; font-weight:600; margin-bottom:6px}
+  .campo input, .campo textarea, .campo select{
+    width:100%; padding:12px; border:1px solid var(--line); border-radius:var(--r);
+    background:var(--bg); color:var(--ink); font-family:inherit; font-size:16px;
+  }
+  .campo textarea{min-height:120px; resize:vertical}
+  .campo input:focus, .campo textarea:focus, .campo select:focus{
+    outline:none; border-color:var(--focus); box-shadow:0 0 0 3px var(--alugar-wash);
+  }
+  .recado{
+    margin-top:16px; padding:13px 15px; border-radius:var(--r);
+    background:var(--alugar-wash); color:var(--ink); font-size:14.5px; display:none;
+  }
+  .recado.on{display:block}
+  .tec{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
+  .tec li{
+    border:1px solid var(--line); background:var(--surface); border-radius:99px;
+    padding:7px 14px; font-size:13.5px; color:var(--ink-2);
+  }
+  .tec li b{color:var(--ink); font-weight:600}
+  .link-lista{list-style:none; margin:0; padding:0; display:grid; gap:2px;
+    border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
+  .link-lista li{background:var(--surface); border-bottom:1px solid var(--line)}
+  .link-lista li:last-child{border-bottom:0}
+  .link-lista a{
+    display:flex; align-items:center; gap:14px; padding:15px 18px;
+    text-decoration:none; color:var(--ink);
+  }
+  .link-lista a:hover{background:var(--surface-2)}
+  .link-lista b{display:block; font-weight:600}
+  .link-lista span{color:var(--ink-3); font-size:13.5px}
+  .link-lista .seta{margin-left:auto; color:var(--ink-3)}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-in">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 30V21" stroke="currentColor" stroke-width="3.4"/>
+      <path d="M16 21c0-5-7-5.5-8.6-12.4" stroke="var(--alugar)" stroke-width="3.4"/>
+      <path d="M16 21c0-5 7-5.5 8.6-12.4" stroke="var(--proprio)" stroke-width="3.4"/>
+      <circle cx="6.6" cy="5" r="2.6" fill="var(--alugar)"/>
+      <circle cx="25.4" cy="5" r="2.6" fill="var(--proprio)"/>
+    </svg>
+    <h1 class="marca" style="font-size:21px">Rota Certa<small>Motorista de aplicativo</small></h1>
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="funcionalidades.html">Funcionalidades</a>
+      <a href="equipe.html">Quem somos</a>
+      <a href="contato.html" aria-current="page">Contato</a>
+      <a href="app/">Abrir o app</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================================================================
+       SEÇÃO 4 — CALL TO ACTION E CONTATO
+       Responsável: Erik Comegno
+       ================================================================ -->
+  <section class="secao">
+    <p class="olho">Experimente</p>
+    <h2>Faça a sua conta agora</h2>
+    <p class="lead">
+      A calculadora está publicada e funciona no celular. Não pede cadastro, não envia
+      nada para servidor e leva menos de dois minutos.
+    </p>
+    <div class="botoes">
+      <a class="btn" href="app/">Abrir a calculadora</a>
+      <a class="btn vazio" href="https://github.com/MMarcatoRicardo/Motorista_Aplicativo" target="_blank" rel="noopener">Ver o código no GitHub</a>
+    </div>
+  </section>
+
+  <section class="secao">
+    <p class="olho">Links do projeto</p>
+    <h2>Onde encontrar tudo</h2>
+    <ul class="link-lista">
+      <li>
+        <a href="app/">
+          <div><b>Aplicação publicada</b><span>A calculadora rodando, pronta para uso</span></div>
+          <span class="seta" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/MMarcatoRicardo/Motorista_Aplicativo" target="_blank" rel="noopener">
+          <div><b>Repositório no GitHub</b><span>Código-fonte, histórico de commits e pull requests</span></div>
+          <span class="seta" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/MMarcatoRicardo/Motorista_Aplicativo/graphs/contributors" target="_blank" rel="noopener">
+          <div><b>Contribuições da equipe</b><span>Quem commitou o quê, direto na aba Insights</span></div>
+          <span class="seta" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="equipe.html">
+          <div><b>Perfis dos integrantes</b><span>Nome, cargo e GitHub de cada um</span></div>
+          <span class="seta" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="secao">
+    <p class="olho">Tecnologias utilizadas</p>
+    <h2>Como foi construído</h2>
+    <p>
+      O projeto roda inteiro no navegador, sem framework e sem dependências instaladas.
+      Essa escolha foi proposital: o site abre rápido em conexão fraca, funciona offline
+      e pode ser hospedado de graça no GitHub Pages.
+    </p>
+    <ul class="tec">
+      <li><b>HTML5</b> semântico</li>
+      <li><b>CSS3</b> com variáveis e grid</li>
+      <li><b>JavaScript</b> puro, sem biblioteca</li>
+      <li><b>SVG</b> para o gráfico e a logo</li>
+      <li><b>localStorage</b> para salvar os dados</li>
+      <li><b>Google Fonts</b> — Barlow e IBM Plex Mono</li>
+      <li><b>Git</b> e <b>GitHub</b> com branches e pull requests</li>
+      <li><b>GitHub Pages</b> para publicação</li>
+    </ul>
+  </section>
+
+  <section class="secao">
+    <p class="olho">Fale com a equipe</p>
+    <h2>Mande um recado</h2>
+    <p>
+      Encontrou um erro na conta ou quer sugerir um recurso? Escreva abaixo.
+      <strong>Este formulário é uma demonstração acadêmica</strong> — ele não envia dados
+      para lugar nenhum, apenas confirma o preenchimento na própria página.
+    </p>
+
+    <div class="cartao" style="max-width:560px">
+      <form id="form-contato" novalidate>
+        <div class="campo">
+          <label for="f-nome">Seu nome</label>
+          <input id="f-nome" name="nome" type="text" required autocomplete="name">
+        </div>
+        <div class="campo">
+          <label for="f-email">E-mail</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <div class="campo">
+          <label for="f-assunto">Assunto</label>
+          <select id="f-assunto" name="assunto">
+            <option>Sugestão de melhoria</option>
+            <option>Encontrei um erro no cálculo</option>
+            <option>Dúvida sobre o resultado</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="f-msg">Mensagem</label>
+          <textarea id="f-msg" name="mensagem" required></textarea>
+        </div>
+        <button class="btn" type="submit">Enviar mensagem</button>
+        <p class="recado" id="recado" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="rodape-in">
+    <p><strong>Rota Certa</strong> — projeto acadêmico desenvolvido em equipe.</p>
+    <p>Seção de contato sob responsabilidade de Erik Comegno.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("form-contato").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var recado = document.getElementById("recado");
+    var nome = document.getElementById("f-nome").value.trim();
+    var email = document.getElementById("f-email").value.trim();
+    var msg = document.getElementById("f-msg").value.trim();
+
+    if (!nome || !email || !msg){
+      recado.textContent = "Preencha nome, e-mail e mensagem para enviar.";
+      recado.className = "recado on";
+      return;
+    }
+    recado.textContent = "Obrigado, " + nome.split(" ")[0] +
+      "! Sua mensagem foi registrada nesta demonstração. Em um sistema real ela chegaria à equipe por e-mail.";
+    recado.className = "recado on";
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
