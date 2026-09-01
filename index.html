@@ -1,0 +1,1376 @@
+<title>Alugar ou Usar o Meu?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+
+<style>
+/* ============================================================
+   TOKENS — paleta completa no :root (tema claro),
+   redefinida por tokens nos dois blocos de tema escuro.
+   ============================================================ */
+:root{
+  --bg:#F2F4F5;
+  --surface:#FFFFFF;
+  --surface-2:#E9EDEF;
+  --ink:#131A1E;
+  --ink-2:#41525A;
+  --ink-3:#6B7D86;
+  --line:#D6DEE1;
+  --line-strong:#B6C3C8;
+
+  --alugar:#0090A0;
+  --proprio:#C2410C;
+  --alugar-wash:rgba(0,144,160,.10);
+  --proprio-wash:rgba(194,65,12,.10);
+
+  --bom:#1E7A47;
+  --alerta:#9A6206;
+  --grave:#B3261E;
+  --bom-wash:rgba(30,122,71,.10);
+  --alerta-wash:rgba(154,98,6,.12);
+  --grave-wash:rgba(179,38,30,.10);
+
+  --faixa:#E3B01F;              /* amarelo de sinalização — só na pista */
+  --focus:#0090A0;
+  --grid:rgba(19,26,30,.09);
+
+  --r:6px;
+  --shadow:0 1px 2px rgba(15,25,30,.05), 0 6px 20px -12px rgba(15,25,30,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1418;
+    --surface:#141B21;
+    --surface-2:#1C252C;
+    --ink:#E9EEF0;
+    --ink-2:#AEBDC4;
+    --ink-3:#84969E;
+    --line:#26323A;
+    --line-strong:#3A4A54;
+
+    --alugar:#0FA3B1;
+    --proprio:#DB7526;
+    --alugar-wash:rgba(15,163,177,.14);
+    --proprio-wash:rgba(219,117,38,.14);
+
+    --bom:#4CAF7A;
+    --alerta:#D8A63E;
+    --grave:#E97b73;
+    --bom-wash:rgba(76,175,122,.14);
+    --alerta-wash:rgba(216,166,62,.14);
+    --grave-wash:rgba(233,123,115,.14);
+
+    --faixa:#D8AE2E;
+    --focus:#2FBACA;
+    --grid:rgba(233,238,240,.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1418;
+  --surface:#141B21;
+  --surface-2:#1C252C;
+  --ink:#E9EEF0;
+  --ink-2:#AEBDC4;
+  --ink-3:#84969E;
+  --line:#26323A;
+  --line-strong:#3A4A54;
+
+  --alugar:#0FA3B1;
+  --proprio:#DB7526;
+  --alugar-wash:rgba(15,163,177,.14);
+  --proprio-wash:rgba(219,117,38,.14);
+
+  --bom:#4CAF7A;
+  --alerta:#D8A63E;
+  --grave:#E97b73;
+  --bom-wash:rgba(76,175,122,.14);
+  --alerta-wash:rgba(216,166,62,.14);
+  --grave-wash:rgba(233,123,115,.14);
+
+  --faixa:#D8AE2E;
+  --focus:#2FBACA;
+  --grid:rgba(233,238,240,.10);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Barlow","Segoe UI",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-family:"IBM Plex Mono",ui-monospace,"Courier New",monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- estrutura ---------- */
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 96px}
+.wrap.largo{max-width:1000px}
+
+header.topo{
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+  position:sticky;top:0;z-index:20;
+}
+.topo-in{
+  max-width:1000px;margin:0 auto;padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.marca{
+  font-family:"Barlow Condensed","Barlow",sans-serif;
+  font-weight:700;font-size:21px;letter-spacing:.02em;
+  text-transform:uppercase;line-height:1;margin:0;
+}
+.marca small{
+  display:block;font-family:"Barlow",sans-serif;font-weight:500;
+  font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:3px;
+}
+.tema{
+  margin-left:auto;background:none;border:1px solid var(--line);
+  color:var(--ink-2);border-radius:var(--r);padding:7px 10px;
+  font:inherit;font-size:13px;cursor:pointer;
+}
+.tema:hover{border-color:var(--line-strong);color:var(--ink)}
+
+/* ---------- pista de progresso ---------- */
+.pista{max-width:1000px;margin:0 auto;padding:18px 16px 4px}
+.pista-trilho{
+  position:relative;height:6px;border-radius:3px;
+  background:var(--surface-2);overflow:hidden;
+}
+.pista-trilho::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,var(--faixa) 0 14px,transparent 14px 30px);
+  opacity:.30;
+}
+.pista-feita{
+  position:absolute;left:0;top:0;bottom:0;
+  background:var(--ink);border-radius:3px;
+  transition:width .28s ease;
+}
+.pista-passos{
+  display:flex;justify-content:space-between;
+  margin-top:9px;gap:6px;
+}
+.pista-passos span{
+  font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;
+}
+.pista-passos span.on{color:var(--ink);font-weight:600}
+
+/* ---------- cartões e formulário ---------- */
+.cartao{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);padding:20px;box-shadow:var(--shadow);
+}
+.passo{display:none}
+.passo.on{display:block}
+
+.olho{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;margin:0 0 6px;
+}
+h2.tit{
+  font-family:"Barlow Condensed","Barlow",sans-serif;
+  font-weight:700;font-size:30px;line-height:1.06;letter-spacing:.005em;
+  margin:0 0 8px;text-wrap:balance;
+}
+p.sub{margin:0 0 22px;color:var(--ink-2);max-width:60ch}
+
+.campos{display:grid;gap:16px}
+.campo label{
+  display:block;font-size:14px;font-weight:600;margin-bottom:5px;
+}
+.dica{display:block;font-weight:400;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.entrada{
+  display:flex;align-items:stretch;
+  border:1px solid var(--line);border-radius:var(--r);
+  background:var(--bg);overflow:hidden;
+}
+.entrada:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 22%,transparent)}
+.entrada .fixo{
+  display:flex;align-items:center;padding:0 11px;
+  background:var(--surface-2);color:var(--ink-3);
+  font-size:13px;font-weight:600;white-space:nowrap;
+}
+.entrada input{
+  flex:1;min-width:0;border:0;background:none;color:var(--ink);
+  padding:12px;font-family:"IBM Plex Mono",monospace;font-size:16px;
+  font-variant-numeric:tabular-nums;
+}
+.entrada input:focus{outline:none}
+
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:460px){.dupla{grid-template-columns:1fr}}
+
+.segmento{display:flex;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.segmento button{
+  flex:1;padding:11px 8px;border:0;background:var(--bg);color:var(--ink-2);
+  font:inherit;font-size:14px;font-weight:500;cursor:pointer;
+  border-right:1px solid var(--line);
+}
+.segmento button:last-child{border-right:0}
+.segmento button[aria-pressed="true"]{background:var(--ink);color:var(--surface);font-weight:600}
+
+.marca-cx{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:12px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--bg);cursor:pointer;
+}
+.marca-cx input{margin-top:3px;accent-color:var(--focus);width:17px;height:17px;flex:none}
+.marca-cx span{font-size:14px}
+.marca-cx b{display:block;font-weight:600}
+.marca-cx i{display:block;font-style:normal;color:var(--ink-3);font-size:12.5px}
+
+.nota{
+  border-left:3px solid var(--line-strong);padding:2px 0 2px 12px;
+  color:var(--ink-2);font-size:13.5px;margin:18px 0 0;
+}
+.nota.atencao{border-left-color:var(--alerta);color:var(--ink-2)}
+
+/* capa */
+.capa{padding:28px 22px 24px}
+h2.tit.grande{font-size:clamp(32px,8vw,44px);margin-bottom:12px}
+.lista-capa{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:11px}
+.lista-capa li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--ink-2)}
+.lista-capa li b{color:var(--ink);font-weight:600}
+.lista-capa .mk{
+  flex:none;width:19px;height:19px;border-radius:50%;background:var(--surface-2);
+  color:var(--ink-2);display:grid;place-items:center;font-size:11px;font-weight:700;margin-top:1px;
+}
+.selo{
+  display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:99px;
+  background:var(--alugar-wash);color:var(--alugar);font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;
+}
+
+/* raio-x da semana */
+.raiox{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media (max-width:420px){.raiox{grid-template-columns:1fr}}
+.raiox .tile{background:var(--surface);padding:14px 16px}
+.raiox .tile p{margin:0}
+.raiox .tile .rotulo{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.raiox .tile .val{
+  font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-weight:600;font-size:24px;line-height:1.2;margin-top:3px;letter-spacing:-.02em;
+}
+.raiox .tile .val small{font-family:"Barlow",sans-serif;font-size:13px;font-weight:500;color:var(--ink-3);letter-spacing:0}
+.raiox .tile .obs{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+
+.acoes{display:flex;gap:10px;margin-top:24px}
+.btn{
+  flex:1;padding:14px 18px;border-radius:var(--r);border:1px solid transparent;
+  font:inherit;font-weight:600;font-size:16px;cursor:pointer;
+  background:var(--ink);color:var(--surface);
+}
+.btn:hover{opacity:.9}
+.btn.vazio{background:none;border-color:var(--line);color:var(--ink-2);flex:0 0 auto;padding:14px 20px}
+.btn.vazio:hover{border-color:var(--line-strong);color:var(--ink)}
+.btn.mini{flex:0 0 auto;padding:10px 16px;font-size:14px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---------- veredito ---------- */
+#tela-resultado{display:none}
+#tela-resultado.on{display:block}
+
+.veredito{
+  border:1px solid var(--line);border-left:5px solid var(--vd,var(--ink));
+  border-radius:var(--r);background:var(--surface);
+  padding:22px;box-shadow:var(--shadow);
+}
+.veredito .olho{color:var(--vd)}
+.veredito h2{
+  font-family:"Barlow Condensed","Barlow",sans-serif;
+  font-weight:700;font-size:clamp(30px,7vw,42px);line-height:1;
+  text-transform:uppercase;margin:0 0 10px;letter-spacing:.01em;
+}
+.veredito p{margin:0;color:var(--ink-2);max-width:62ch}
+.veredito .cifra{color:var(--ink);font-weight:600}
+
+.grade2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media (max-width:620px){.grade2{grid-template-columns:1fr}}
+
+.cenario{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:0;overflow:hidden;box-shadow:var(--shadow);
+}
+.cenario .faixa-topo{height:4px;background:var(--cor)}
+.cenario .corpo{padding:16px 18px 18px}
+.cenario-cab{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ponto{width:11px;height:11px;border-radius:50%;background:var(--cor);flex:none}
+.cenario h3{
+  font-family:"Barlow Condensed","Barlow",sans-serif;font-weight:700;
+  font-size:19px;text-transform:uppercase;letter-spacing:.03em;margin:0;
+}
+.chip{
+  margin-left:auto;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  font-weight:600;padding:3px 8px;border-radius:99px;
+  background:var(--bom-wash);color:var(--bom);
+}
+.valorao{
+  font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-weight:600;font-size:clamp(26px,6vw,32px);line-height:1.1;letter-spacing:-.02em;
+}
+.valorao.neg{color:var(--grave)}
+.rotulo{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.mini-linhas{display:grid;gap:7px;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
+.mini-linhas div{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.mini-linhas span:first-child{color:var(--ink-2)}
+.mini-linhas span:last-child{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- bloco genérico ---------- */
+.bloco{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;margin-top:14px;box-shadow:var(--shadow);
+}
+.bloco h3{
+  font-family:"Barlow Condensed","Barlow",sans-serif;font-weight:700;
+  font-size:22px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 4px;
+}
+.bloco h3 + p{margin:0 0 16px;color:var(--ink-2);max-width:64ch}
+
+/* ---------- gráfico ---------- */
+.grafico-cx{position:relative;overflow-x:auto}
+svg.gr{display:block;width:100%;min-width:520px;height:auto}
+.gr .eixo{fill:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:11px}
+.gr .grade{stroke:var(--grid);stroke-width:1}
+.gr .zero{stroke:var(--line-strong);stroke-width:1;stroke-dasharray:2 3}
+.gr .linha{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gr .virada{stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:4 4}
+.gr .rot{fill:var(--ink);font-family:"Barlow",sans-serif;font-size:12.5px;font-weight:600}
+.gr .rot-mudo{fill:var(--ink-3);font-family:"Barlow",sans-serif;font-size:11.5px}
+.gr .cruz{stroke:var(--ink-3);stroke-width:1}
+.dica-gr{
+  position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r);
+  padding:9px 11px;box-shadow:var(--shadow);font-size:13px;min-width:150px;z-index:5;
+}
+.dica-gr.on{opacity:1}
+.dica-gr b{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.dica-gr .l{display:flex;align-items:center;gap:7px;justify-content:space-between}
+.dica-gr .l em{font-style:normal;display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.dica-gr .l strong{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:600}
+
+.legenda{display:flex;flex-wrap:wrap;gap:16px;margin:12px 0 0}
+.legenda span{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--ink-2)}
+
+/* ---------- controles ao vivo ---------- */
+.vivo{display:grid;gap:18px;grid-template-columns:1fr 1fr}
+@media (max-width:620px){.vivo{grid-template-columns:1fr}}
+.faixa-cx label{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:600;margin-bottom:8px}
+.faixa-cx label output{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:15px}
+input[type=range]{width:100%;accent-color:var(--focus);height:26px}
+
+/* ---------- tabela ---------- */
+.tab-cx{overflow-x:auto;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:440px}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--line-strong);
+}
+tbody td:not(:first-child){font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+tbody tr.receita td{color:var(--bom)}
+tr.total td{font-weight:600;border-top:1px solid var(--line-strong);border-bottom:0}
+tr.total td:first-child{font-weight:600}
+td.vazio-cel{color:var(--ink-3)}
+
+/* ---------- avisos ---------- */
+.avisos{display:grid;gap:10px;margin-top:2px}
+.aviso{
+  display:flex;gap:11px;padding:13px 14px;border-radius:var(--r);
+  background:var(--w-bg,var(--surface-2));border:1px solid transparent;
+  font-size:14px;line-height:1.45;
+}
+.aviso .ic{
+  flex:none;width:20px;height:20px;border-radius:50%;
+  background:var(--w-cor);color:var(--surface);
+  display:grid;place-items:center;font-size:12px;font-weight:700;margin-top:1px;
+}
+.aviso b{display:block;color:var(--ink)}
+.aviso p{margin:2px 0 0;color:var(--ink-2)}
+
+details.tabela-gr{margin-top:14px}
+details.tabela-gr summary{cursor:pointer;font-size:13.5px;color:var(--ink-2);font-weight:500}
+details.tabela-gr summary:hover{color:var(--ink)}
+
+.rodape{margin-top:26px;color:var(--ink-3);font-size:12.5px;max-width:70ch}
+.rodape a{color:var(--ink-2)}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;animation:none !important}
+}
+</style>
+
+<header class="topo">
+  <div class="topo-in">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 30V21" stroke="currentColor" stroke-width="3.4"/><path d="M16 21c0-5-7-5.5-8.6-12.4" stroke="var(--alugar)" stroke-width="3.4"/><path d="M16 21c0-5 7-5.5 8.6-12.4" stroke="var(--proprio)" stroke-width="3.4"/><circle cx="6.6" cy="5" r="2.6" fill="var(--alugar)"/><circle cx="25.4" cy="5" r="2.6" fill="var(--proprio)"/></svg><h1 class="marca">Alugar ou usar o meu?<small>Calculadora para motorista de app</small></h1>
+    <button class="tema" id="btn-tema" type="button" aria-label="Alternar tema">Tema</button>
+  </div>
+</header>
+
+<div class="pista" id="pista" hidden>
+  <div class="pista-trilho"><div class="pista-feita" id="pista-feita" style="width:25%"></div></div>
+  <div class="pista-passos" id="pista-passos">
+    <span class="on">1 · Jornada</span>
+    <span>2 · Combustível</span>
+    <span>3 · Aluguel</span>
+    <span>4 · Meu carro</span>
+  </div>
+</div>
+
+<main class="wrap" id="wrap">
+
+  <!-- ============ HOME ============ -->
+  <section id="tela-home">
+    <div class="capa">
+      <div class="logo-grande"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 30V21" stroke="currentColor" stroke-width="3.4"/><path d="M16 21c0-5-7-5.5-8.6-12.4" stroke="var(--alugar)" stroke-width="3.4"/><path d="M16 21c0-5 7-5.5 8.6-12.4" stroke="var(--proprio)" stroke-width="3.4"/><circle cx="6.6" cy="5" r="2.6" fill="var(--alugar)"/><circle cx="25.4" cy="5" r="2.6" fill="var(--proprio)"/></svg></div>
+      <h2 class="tit grande">Alugar ou usar o meu?</h2>
+      <p class="sub">A conta que mostra em qual dos dois caminhos sobra mais dinheiro para quem quer rodar de aplicativo como renda extra.</p>
+
+      <div class="campo capa-campo">
+        <label for="i-nome">Seu nome</label>
+        <div class="entrada"><input id="i-nome" type="text" autocomplete="given-name" placeholder="Como podemos te chamar"></div>
+      </div>
+
+      <button class="btn" type="button" id="btn-comecar">Começar</button>
+    </div>
+  </section>
+
+  <!-- ============ FORMULÁRIO ============ -->
+  <section id="tela-form" hidden>
+    <div class="cartao">
+
+      <div class="passo on" data-passo="1">
+        <h2 class="tit" id="tit-p1">Sua última semana de trabalho</h2>
+        <p class="sub" id="sub-p1">Pegue o extrato do app e a nota do posto. Com esses números a gente descobre o resto.</p>
+
+        <div class="segmento" id="seg-perfil" role="group" aria-label="Sua situação hoje">
+          <button type="button" data-perfil="rodo" aria-pressed="true">Já rodo de app</button>
+          <button type="button" data-perfil="novo" aria-pressed="false">Ainda não comecei</button>
+        </div>
+
+        <div class="campos">
+          <div class="dupla">
+            <div class="campo">
+              <label for="i-dias">Dias na semana</label>
+              <div class="entrada"><input id="i-dias" type="text" inputmode="decimal" value="6"><span class="fixo">dias</span></div>
+            </div>
+            <div class="campo">
+              <label for="i-horas">Horas por dia</label>
+              <div class="entrada"><input id="i-horas" type="text" inputmode="decimal" value="10"><span class="fixo">h</span></div>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="i-kmdia">Km rodados por dia</label>
+            <div class="entrada"><input id="i-kmdia" type="text" inputmode="decimal" value="200"><span class="fixo">km</span></div>
+          </div>
+
+          <div class="campo">
+            <label for="i-receb">Quanto recebeu na semana</label>
+            <div class="entrada"><span class="fixo">R$</span><input id="i-receb" type="text" inputmode="decimal" value="1700"></div>
+            <span class="dica">O que caiu na conta, já sem a taxa do app.</span>
+          </div>
+
+          <div class="dupla">
+            <div class="campo">
+              <label for="i-combsem">Combustível na semana</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-combsem" type="text" inputmode="decimal" value="700"></div>
+            </div>
+            <div class="campo">
+              <label for="i-litro">Preço do litro</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-litro" type="text" inputmode="decimal" value="6,20"></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="nota" id="resumo-jornada"></p>
+        <div class="acoes"><button class="btn" type="button" data-ir="2">Continuar</button></div>
+      </div>
+
+      <div class="passo" data-passo="2">
+        <h2 class="tit">O que a sua semana revela</h2>
+        <p class="sub">Números tirados do que você acabou de informar. Confira se batem.</p>
+
+        <div class="raiox" id="raiox"></div>
+        <p class="nota atencao" id="alerta-raiox" hidden></p>
+
+        <div class="campos" style="margin-top:22px">
+          <div class="campo">
+            <label for="i-outros">Outros gastos do mês</label>
+            <div class="entrada"><span class="fixo">R$</span><input id="i-outros" type="text" inputmode="decimal" value="250"><span class="fixo">/mês</span></div>
+            <span class="dica">Lavagem, celular, água e bala. Vale para os dois cenários.</span>
+          </div>
+        </div>
+
+        <div class="acoes">
+          <button class="btn vazio" type="button" data-ir="1">Voltar</button>
+          <button class="btn" type="button" data-ir="3">Continuar</button>
+        </div>
+      </div>
+
+      <div class="passo" data-passo="3">
+        <h2 class="tit">O carro alugado</h2>
+        <p class="sub">Use os valores da locadora que você pesquisou.</p>
+
+        <div class="campos">
+          <div class="campo">
+            <label for="i-alug">Valor do aluguel</label>
+            <div class="entrada"><span class="fixo">R$</span><input id="i-alug" type="text" inputmode="decimal" value="550"></div>
+          </div>
+
+          <div class="campo">
+            <label>Cobrado por</label>
+            <div class="segmento" id="seg-periodo" role="group" aria-label="Período de cobrança">
+              <button type="button" data-per="dia" aria-pressed="false">Dia</button>
+              <button type="button" data-per="semana" aria-pressed="true">Semana</button>
+              <button type="button" data-per="mes" aria-pressed="false">Mês</button>
+            </div>
+            <span class="dica" id="dica-periodo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="i-kml-a">Consumo do carro alugado</label>
+            <div class="entrada"><input id="i-kml-a" type="text" inputmode="decimal" value="12"><span class="fixo">km/l</span></div>
+            <span class="dica" id="dica-kml">Carro de locadora costuma fazer 1 km a mais por litro que o seu.</span>
+          </div>
+
+          <label class="marca-cx" for="i-inclui">
+            <input id="i-inclui" type="checkbox" checked>
+            <span><b>Já inclui manutenção, seguro e IPVA</b><i>É o padrão das locadoras para motorista de app.</i></span>
+          </label>
+        </div>
+
+        <div class="acoes">
+          <button class="btn vazio" type="button" data-ir="2">Voltar</button>
+          <button class="btn" type="button" data-ir="4">Continuar</button>
+        </div>
+      </div>
+
+      <div class="passo" data-passo="4">
+        <h2 class="tit" id="tit-p4">O seu carro</h2>
+        <p class="sub" id="sub-p4">Aqui entram os custos que somem do dia a dia.</p>
+
+        <div class="campo" style="margin-bottom:20px">
+          <label>Sua situação hoje</label>
+          <div class="segmento coluna" id="seg-situação" role="group" aria-label="Situacao do carro">
+            <button type="button" data-sit="quitado" aria-pressed="true">Já tenho, está quitado</button>
+            <button type="button" data-sit="pagando" aria-pressed="false">Tenho, ainda estou pagando</button>
+            <button type="button" data-sit="nenhum" aria-pressed="false">Não tenho carro</button>
+          </div>
+        </div>
+
+        <div class="campos">
+          <div class="dupla">
+            <div class="campo">
+              <label for="i-valor" id="lab-valor">Quanto vale hoje</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-valor" type="text" inputmode="decimal" value="60000"></div>
+            </div>
+            <div class="campo">
+              <label for="i-deprec">Desvaloriza por ano</label>
+              <div class="entrada"><input id="i-deprec" type="text" inputmode="decimal" value="10"><span class="fixo">%</span></div>
+            </div>
+          </div>
+
+          <div class="dupla so-divida" hidden>
+            <div class="campo">
+              <label for="i-parcela" id="lab-parcela">Parcela</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-parcela" type="text" inputmode="decimal" value="0"><span class="fixo">/mês</span></div>
+            </div>
+            <div class="campo">
+              <label for="i-saldo" id="lab-saldo">Ainda deve</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-saldo" type="text" inputmode="decimal" value="0"></div>
+            </div>
+          </div>
+
+          <div class="dupla">
+            <div class="campo">
+              <label for="i-seguro">Seguro por ano</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-seguro" type="text" inputmode="decimal" value="3000"></div>
+            </div>
+            <div class="campo">
+              <label for="i-ipva">IPVA e licenciamento</label>
+              <div class="entrada"><span class="fixo">R$</span><input id="i-ipva" type="text" inputmode="decimal" value="2400"><span class="fixo">/ano</span></div>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Manutenção</label>
+            <div class="segmento" id="seg-manut" role="group" aria-label="Perfil de manutenção">
+              <button type="button" data-manut="0.18" aria-pressed="false">Popular 1.0</button>
+              <button type="button" data-manut="0.25" aria-pressed="true">Sedan</button>
+              <button type="button" data-manut="0.34" aria-pressed="false">SUV</button>
+            </div>
+            <div class="entrada" style="margin-top:8px"><span class="fixo">R$</span><input id="i-manut" type="text" inputmode="decimal" value="0,25"><span class="fixo">/km</span></div>
+          </div>
+        </div>
+
+        <p class="nota" id="nota-proprio"></p>
+
+        <div class="acoes">
+          <button class="btn vazio" type="button" data-ir="3">Voltar</button>
+          <button class="btn" type="button" id="btn-calcular">Ver o resultado</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ RESULTADO ============ -->
+  <section id="tela-resultado" aria-live="polite">
+
+    <div class="veredito" id="veredito">
+      <p class="olho" id="v-olho">Resultado</p>
+      <h2 id="v-titulo"></h2>
+      <p id="v-texto"></p>
+    </div>
+
+    <div class="grade2">
+      <article class="cenario" style="--cor:var(--alugar)">
+        <div class="corpo">
+          <div class="cenario-cab">
+            <span class="ponto"></span><h3>Alugar</h3>
+            <span class="chip" id="chip-alugar" hidden>Melhor</span>
+          </div>
+
+          <div class="conta">
+            <div class="cl"><span>Entra no mês</span><b id="a-receita">—</b></div>
+            <div class="cl saida"><span>Sai no mês</span><b id="a-custo">—</b></div>
+          </div>
+
+          <div class="barra"><i class="p-custo" id="a-bc"></i><i class="p-sobra" id="a-bs"></i></div>
+          <div class="barra-leg"><span><i class="sw sw-custo"></i>custo</span><span><i class="sw sw-sobra"></i>sobra</span></div>
+
+          <div class="sobra-cx">
+            <p class="rotulo">Sobra para você</p>
+            <p class="valorao" id="a-lucro">—</p>
+            <p class="obs"><span id="a-hora">—</span> por hora rodada · <span id="a-ano">—</span> no ano</p>
+          </div>
+        </div>
+      </article>
+      <article class="cenario" style="--cor:var(--proprio)">
+        <div class="corpo">
+          <div class="cenario-cab">
+            <span class="ponto"></span><h3>Meu carro</h3>
+            <span class="chip" id="chip-proprio" hidden>Melhor</span>
+          </div>
+
+          <div class="conta">
+            <div class="cl"><span>Entra no mês</span><b id="p-receita">—</b></div>
+            <div class="cl saida"><span>Sai no mês</span><b id="p-custo">—</b></div>
+          </div>
+
+          <div class="barra"><i class="p-custo" id="p-bc"></i><i class="p-sobra" id="p-bs"></i></div>
+          <div class="barra-leg"><span><i class="sw sw-custo"></i>custo</span><span><i class="sw sw-sobra"></i>sobra</span></div>
+
+          <div class="sobra-cx">
+            <p class="rotulo">Sobra para você</p>
+            <p class="valorao" id="p-lucro">—</p>
+            <p class="obs"><span id="p-hora">—</span> por hora rodada · <span id="p-ano">—</span> no ano</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="bloco">
+      <h3>O ponto de virada</h3>
+      <p id="txt-virada"></p>
+      <div class="grafico-cx" id="grafico-cx">
+        <svg class="gr" id="grafico" viewBox="0 0 720 330" role="img" aria-labelledby="gr-tit"></svg>
+        <div class="dica-gr" id="dica-gr"></div>
+      </div>
+      <div class="legenda">
+        <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="var(--alugar)"></circle></svg>Alugar</span>
+        <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="var(--proprio)"></circle></svg>Meu carro</span>
+        <span><svg width="20" height="14" aria-hidden="true"><line x1="1" y1="7" x2="19" y2="7" stroke="var(--ink-3)" stroke-width="1.5" stroke-dasharray="4 4"></line></svg>Ponto de virada</span>
+      </div>
+      <details class="tabela-gr">
+        <summary>Ver os números do gráfico em tabela</summary>
+        <div class="tab-cx"><table id="tab-grafico"></table></div>
+      </details>
+    </div>
+
+    <div class="bloco">
+      <h3>Mexa na jornada</h3>
+      <p>Veja o que acontece com a sua sobra se você rodar mais, ou menos. Tudo na página se atualiza junto.</p>
+      <div class="vivo">
+        <div class="faixa-cx">
+          <label for="s-horas">Horas por dia <output id="o-horas"></output></label>
+          <input id="s-horas" type="range" min="4" max="14" step="0.5" value="10">
+        </div>
+        <div class="faixa-cx">
+          <label for="s-dias">Dias por semana <output id="o-dias"></output></label>
+          <input id="s-dias" type="range" min="1" max="7" step="1" value="6">
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <h3>De onde vem cada real</h3>
+      <p>Os dois cenários faturam o mesmo. A diferença mora inteira na coluna de custos.</p>
+      <div class="tab-cx"><table id="tab-custos"></table></div>
+    </div>
+
+    <div class="bloco">
+      <h3>E o patrimônio?</h3>
+      <p id="patr-intro"></p>
+      <div class="grade2" id="patr-cx"></div>
+      <p class="nota" id="nota-patrimonio"></p>
+    </div>
+
+    <div class="bloco">
+      <h3>Antes de decidir</h3>
+      <p>Coisas que a conta não mostra sozinha.</p>
+      <div class="avisos" id="avisos"></div>
+    </div>
+
+    <div class="acoes">
+      <button class="btn vazio mini" type="button" id="btn-voltar">Ajustar meus dados</button>
+      <button class="btn vazio mini" type="button" id="btn-limpar">Recomeçar</button>
+    </div>
+
+    <p class="rodape">Estimativa baseada nos números que você informou, com o mês equivalente a 4,35 semanas. Não considera imposto de renda, INSS nem multas. Serve para comparar os dois caminhos, não como garantia de ganho.</p>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  var SEM = 4.345;            // semanas por mês (365 / 7 / 12)
+  var CHAVE = "alugar-ou-meu-v1";
+
+  /* ---------- utilidades ---------- */
+  function num(txt){
+    if (txt === null || txt === undefined) return 0;
+    var s = String(txt).trim().replace(/[^\d,.\-]/g, "");
+    if (s.indexOf(",") > -1) s = s.replace(/\./g, "").replace(",", ".");
+    var v = parseFloat(s);
+    return isFinite(v) ? v : 0;
+  }
+  var fmtBRL = new Intl.NumberFormat("pt-BR", {style:"currency", currency:"BRL", maximumFractionDigits:0});
+  var fmtBRL2 = new Intl.NumberFormat("pt-BR", {style:"currency", currency:"BRL", minimumFractionDigits:2, maximumFractionDigits:2});
+  var fmtN = new Intl.NumberFormat("pt-BR", {maximumFractionDigits:0});
+  function reais(v){ return fmtBRL.format(Math.round(v)); }
+  function reais2(v){ return fmtBRL2.format(v); }
+  function el(id){ return document.getElementById(id); }
+
+  function horasTexto(h){
+    var inteiro = Math.floor(h);
+    var min = Math.round((h - inteiro) * 60);
+    if (min === 60){ inteiro += 1; min = 0; }
+    return min === 0 ? inteiro + "h" : inteiro + "h" + (min < 10 ? "0" : "") + min;
+  }
+
+  /* ---------- leitura dos campos ---------- */
+  var periodo = "semana";
+
+  /* Deriva os números técnicos a partir dos fatos que o motorista sabe de cor:
+     dias, horas, km por dia, o que recebeu e o que gastou de combustível. */
+  function derivar(){
+    var dias    = num(el("i-dias").value);
+    var horas   = num(el("i-horas").value);
+    var kmDia   = num(el("i-kmdia").value);
+    var receb   = num(el("i-receb").value);
+    var combSem = num(el("i-combsem").value);
+    var litro   = num(el("i-litro").value);
+
+    var horasSem = dias * horas;
+    var kmSem    = dias * kmDia;
+    var litros   = litro > 0 ? combSem / litro : 0;
+
+    return {
+      dias:dias, horas:horas, kmDia:kmDia, litro:litro,
+      horasSem:horasSem, kmSem:kmSem,
+      ganhoHora: horasSem > 0 ? receb / horasSem : 0,
+      kmHora:    horas   > 0 ? kmDia / horas    : 0,
+      kmlProp:   litros  > 0 ? kmSem / litros   : 0,
+      custoCombKm: kmSem > 0 ? combSem / kmSem  : 0,
+      ganhoKm:   kmSem   > 0 ? receb / kmSem    : 0
+    };
+  }
+
+  function lerDados(){
+    var v = derivar();
+    return {
+      horasDia:  v.horas,
+      diasSemana:v.dias,
+      ganhoHora: v.ganhoHora,
+      kmHora:    v.kmHora,
+      kmlProp:   v.kmlProp,
+      litro:     v.litro,
+      outros:    num(el("i-outros").value),
+      aluguel:   num(el("i-alug").value),
+      periodo:   periodo,
+      kmlAlug:   num(el("i-kml-a").value),
+      inclui:    el("i-inclui").checked,
+      valorCarro:num(el("i-valor").value),
+      deprec:    num(el("i-deprec").value),
+      parcela:   num(el("i-parcela").value),
+      seguro:    num(el("i-seguro").value),
+      ipva:      num(el("i-ipva").value),
+      manutKm:   num(el("i-manut").value)
+    };
+  }
+
+  var d = null;               // dados informados
+  var horasDia = 10, diasSemana = 6;   // jornada em análise (mexida pelos controles)
+
+  /* ---------- o cálculo ---------- */
+  function aluguelMes(dados, dias){
+    if (dados.periodo === "dia")    return dados.aluguel * dias * SEM;
+    if (dados.periodo === "semana") return dados.aluguel * SEM;
+    return dados.aluguel;
+  }
+
+  function calcular(hDia, dias){
+    var horasMes = hDia * dias * SEM;
+    var kmMes    = horasMes * d.kmHora;
+    var receita  = horasMes * d.ganhoHora;
+
+    var combA = d.kmlAlug > 0 ? (kmMes / d.kmlAlug) * d.litro : 0;
+    var manutA = d.inclui ? 0 : kmMes * d.manutKm;
+    var alugMes = aluguelMes(d, dias);
+    var custoA = alugMes + combA + manutA + d.outros;
+
+    var combP  = d.kmlProp > 0 ? (kmMes / d.kmlProp) * d.litro : 0;
+    var manutP = kmMes * d.manutKm;
+    var deprecMes = d.valorCarro * (d.deprec / 100) / 12;
+    var seguroMes = d.seguro / 12;
+    var ipvaMes   = d.ipva / 12;
+    var fixosP = deprecMes + d.parcela + seguroMes + ipvaMes;
+    var custoP = combP + manutP + fixosP + d.outros;
+
+    return {
+      horasMes: horasMes, kmMes: kmMes, receita: receita,
+      alugar: {
+        lucro: receita - custoA, custo: custoA,
+        aluguel: alugMes, comb: combA, manut: manutA, outros: d.outros,
+        hora: horasMes > 0 ? (receita - custoA) / horasMes : 0
+      },
+      proprio: {
+        lucro: receita - custoP, custo: custoP,
+        comb: combP, manut: manutP, deprec: deprecMes, parcela: d.parcela,
+        seguro: seguroMes, ipva: ipvaMes, fixos: fixosP, outros: d.outros,
+        hora: horasMes > 0 ? (receita - custoP) / horasMes : 0
+      }
+    };
+  }
+
+  /* Ponto de virada em horas/dia, mantendo os dias da semana fixos.
+     A diferença entre os cenários cresce de forma linear com as horas:
+       diferenca(H) = a * H + b
+     onde 'a' é o quanto se economiza por hora ao alugar (manutenção e
+     combustível que deixam de ser seus) e 'b' é a vantagem fixa mensal. */
+  function pontoDeVirada(dias){
+    var economiaPorKm = (d.inclui ? d.manutKm : 0)
+      + (d.kmlProp > 0 ? d.litro / d.kmlProp : 0)
+      - (d.kmlAlug > 0 ? d.litro / d.kmlAlug : 0);
+    var a = economiaPorKm * d.kmHora;
+    var fixosP = d.valorCarro * (d.deprec / 100) / 12 + d.parcela + d.seguro / 12 + d.ipva / 12;
+    var b = fixosP - aluguelMes(d, dias);
+    if (Math.abs(a) < 1e-9) return null;
+    var horasMes = -b / a;
+    var hDia = horasMes / (dias * SEM);
+    return { horasDia: hDia, inclinacao: a };
+  }
+
+  /* ---------- desenho do gráfico ---------- */
+  var GR = {w:720, h:330, l:62, r:96, t:22, b:44};
+
+  function serie(dias){
+    var pts = [];
+    for (var h = 4; h <= 14.0001; h += 0.25){
+      var r = calcular(h, dias);
+      pts.push({h:h, a:r.alugar.lucro, p:r.proprio.lucro});
+    }
+    return pts;
+  }
+
+  function desenhar(pts, virada){
+    var svg = el("grafico");
+    var iw = GR.w - GR.l - GR.r, ih = GR.h - GR.t - GR.b;
+    var xmin = 4, xmax = 14;
+
+    var todos = [];
+    pts.forEach(function(p){ todos.push(p.a, p.p); });
+    var ymin = Math.min.apply(null, todos), ymax = Math.max.apply(null, todos);
+    if (ymin > 0) ymin = 0;
+    var folga = (ymax - ymin) * 0.10 || 100;
+    ymin -= folga; ymax += folga;
+
+    function X(h){ return GR.l + (h - xmin) / (xmax - xmin) * iw; }
+    function Y(v){ return GR.t + ih - (v - ymin) / (ymax - ymin) * ih; }
+
+    function caminho(chave){
+      return pts.map(function(p, i){ return (i ? "L" : "M") + X(p.h).toFixed(1) + " " + Y(p[chave]).toFixed(1); }).join(" ");
+    }
+
+    // eixo Y: 5 marcas
+    var marcasY = [], passo = (ymax - ymin) / 4;
+    for (var i = 0; i <= 4; i++) marcasY.push(ymin + passo * i);
+
+    var s = '<title id="gr-tit">Sobra no mês conforme as horas rodadas por dia, comparando alugar e usar o carro próprio</title>';
+
+    marcasY.forEach(function(v){
+      var y = Y(v).toFixed(1);
+      s += '<line class="grade" x1="' + GR.l + '" y1="' + y + '" x2="' + (GR.w - GR.r) + '" y2="' + y + '"/>';
+      s += '<text class="eixo" x="' + (GR.l - 10) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end">' + fmtN.format(Math.round(v / 100) * 100 / 1000 * 1000) + '</text>';
+    });
+    if (ymin < 0 && ymax > 0){
+      s += '<line class="zero" x1="' + GR.l + '" y1="' + Y(0).toFixed(1) + '" x2="' + (GR.w - GR.r) + '" y2="' + Y(0).toFixed(1) + '"/>';
+    }
+    s += '<text class="rot-mudo" x="' + GR.l + '" y="' + (GR.t - 8) + '">Sobra no mês (R$)</text>';
+
+    for (var hx = 4; hx <= 14; hx += 2){
+      s += '<text class="eixo" x="' + X(hx).toFixed(1) + '" y="' + (GR.h - GR.b + 20) + '" text-anchor="middle">' + hx + 'h</text>';
+    }
+    s += '<text class="rot-mudo" x="' + (GR.l + iw / 2) + '" y="' + (GR.h - 8) + '" text-anchor="middle">Horas rodadas por dia</text>';
+
+    if (virada && virada.horasDia > xmin && virada.horasDia < xmax){
+      var xv = X(virada.horasDia).toFixed(1);
+      s += '<line class="virada" x1="' + xv + '" y1="' + GR.t + '" x2="' + xv + '" y2="' + (GR.t + ih) + '"/>';
+      s += '<text class="rot-mudo" x="' + xv + '" y="' + (GR.t - 8) + '" text-anchor="middle">virada em ' + horasTexto(virada.horasDia) + '</text>';
+    }
+
+    s += '<path class="linha" d="' + caminho("a") + '" stroke="var(--alugar)"/>';
+    s += '<path class="linha" d="' + caminho("p") + '" stroke="var(--proprio)"/>';
+
+    // rótulos diretos: marca colorida + texto em tinta
+    var fim = pts[pts.length - 1];
+    s += '<circle cx="' + (GR.w - GR.r + 12) + '" cy="' + Y(fim.a).toFixed(1) + '" r="4.5" fill="var(--alugar)"/>';
+    s += '<text class="rot" x="' + (GR.w - GR.r + 22) + '" y="' + (Y(fim.a) + 4).toFixed(1) + '">Alugar</text>';
+    s += '<circle cx="' + (GR.w - GR.r + 12) + '" cy="' + Y(fim.p).toFixed(1) + '" r="4.5" fill="var(--proprio)"/>';
+    s += '<text class="rot" x="' + (GR.w - GR.r + 22) + '" y="' + (Y(fim.p) + 4).toFixed(1) + '">Meu carro</text>';
+
+    // posição atual
+    var atual = calcular(horasDia, diasSemana);
+    if (horasDia >= xmin && horasDia <= xmax){
+      s += '<circle cx="' + X(horasDia).toFixed(1) + '" cy="' + Y(atual.alugar.lucro).toFixed(1) + '" r="6" fill="var(--alugar)" stroke="var(--surface)" stroke-width="2"/>';
+      s += '<circle cx="' + X(horasDia).toFixed(1) + '" cy="' + Y(atual.proprio.lucro).toFixed(1) + '" r="6" fill="var(--proprio)" stroke="var(--surface)" stroke-width="2"/>';
+    }
+
+    s += '<g id="gr-cruz" style="opacity:0"><line class="cruz" x1="0" y1="' + GR.t + '" x2="0" y2="' + (GR.t + ih) + '"/>'
+       + '<circle r="5" fill="var(--alugar)" stroke="var(--surface)" stroke-width="2"/>'
+       + '<circle r="5" fill="var(--proprio)" stroke="var(--surface)" stroke-width="2"/></g>';
+    s += '<rect id="gr-alvo" x="' + GR.l + '" y="' + GR.t + '" width="' + iw + '" height="' + ih + '" fill="transparent" style="cursor:crosshair"/>';
+
+    svg.innerHTML = s;
+    ligarHover(pts, X, Y, xmin, xmax, iw);
+    tabelaGrafico(pts);
+  }
+
+  function ligarHover(pts, X, Y, xmin, xmax, iw){
+    var svg = el("grafico"), alvo = el("gr-alvo"), cruz = el("gr-cruz"), dica = el("dica-gr");
+    var cx = el("grafico-cx");
+
+    function mover(ev){
+      var caixa = svg.getBoundingClientRect();
+      var px = (ev.clientX - caixa.left) / caixa.width * GR.w;
+      var h = xmin + (px - GR.l) / iw * (xmax - xmin);
+      var idx = Math.round((h - 4) / 0.25);
+      idx = Math.max(0, Math.min(pts.length - 1, idx));
+      var p = pts[idx];
+
+      cruz.style.opacity = "1";
+      var linha = cruz.querySelector("line"), bolas = cruz.querySelectorAll("circle");
+      linha.setAttribute("x1", X(p.h)); linha.setAttribute("x2", X(p.h));
+      bolas[0].setAttribute("cx", X(p.h)); bolas[0].setAttribute("cy", Y(p.a));
+      bolas[1].setAttribute("cx", X(p.h)); bolas[1].setAttribute("cy", Y(p.p));
+
+      dica.className = "dica-gr on";
+      dica.innerHTML = '<b>' + horasTexto(p.h) + ' por dia</b>'
+        + '<div class="l"><em><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="var(--alugar)"></circle></svg>Alugar</em><strong>' + reais(p.a) + '</strong></div>'
+        + '<div class="l"><em><svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="var(--proprio)"></circle></svg>Meu carro</em><strong>' + reais(p.p) + '</strong></div>';
+
+      var xTela = X(p.h) / GR.w * caixa.width;
+      var esq = Math.min(Math.max(xTela + 14, 0), cx.clientWidth - dica.offsetWidth - 4);
+      dica.style.left = esq + "px";
+      dica.style.top = "16px";
+    }
+    function sair(){ cruz.style.opacity = "0"; dica.className = "dica-gr"; }
+
+    alvo.addEventListener("mousemove", mover);
+    alvo.addEventListener("mouseleave", sair);
+    alvo.addEventListener("touchmove", function(ev){ mover(ev.touches[0]); }, {passive:true});
+    alvo.addEventListener("touchend", sair);
+  }
+
+  function tabelaGrafico(pts){
+    var linhas = '<thead><tr><th>Horas por dia</th><th>Alugar</th><th>Meu carro</th><th>Diferença</th></tr></thead><tbody>';
+    for (var h = 4; h <= 14; h += 1){
+      var p = pts[Math.round((h - 4) / 0.25)];
+      linhas += '<tr><td>' + h + 'h</td><td>' + reais(p.a) + '</td><td>' + reais(p.p) + '</td><td>' + (p.a >= p.p ? "+" : "") + reais(p.a - p.p) + '</td></tr>';
+    }
+    el("tab-grafico").innerHTML = linhas + '</tbody>';
+  }
+
+  /* ---------- tabela de custos ---------- */
+  function tabelaCustos(r){
+    function linha(nome, a, p, classe){
+      return '<tr' + (classe ? ' class="' + classe + '"' : '') + '><td>' + nome + '</td>'
+        + '<td>' + (a === null ? '<span class="vazio-cel">—</span>' : reais(a)) + '</td>'
+        + '<td>' + (p === null ? '<span class="vazio-cel">—</span>' : reais(p)) + '</td></tr>';
+    }
+    var t = '<thead><tr><th>No mês</th><th>Alugar</th><th>Meu carro</th></tr></thead><tbody>';
+    t += linha("O que entra (sem a taxa do app)", r.receita, r.receita, "receita");
+    t += linha("Aluguel", r.alugar.aluguel, null);
+    t += linha("Combustível", r.alugar.comb, r.proprio.comb);
+    t += linha("Manutenção e pneus", r.alugar.manut || null, r.proprio.manut);
+    t += linha("Desvalorização do carro", null, r.proprio.deprec);
+    t += linha("Parcela do financiamento", null, r.proprio.parcela || null);
+    t += linha("Seguro", null, r.proprio.seguro);
+    t += linha("IPVA e licenciamento", null, r.proprio.ipva);
+    t += linha("Outros gastos", r.alugar.outros, r.proprio.outros);
+    t += linha("Custo total", r.alugar.custo, r.proprio.custo);
+    t += '<tr class="total"><td>Sobra no bolso</td><td>' + reais(r.alugar.lucro) + '</td><td>' + reais(r.proprio.lucro) + '</td></tr>';
+    el("tab-custos").innerHTML = t + '</tbody>';
+  }
+
+  /* ---------- patrimônio em 12 meses ----------
+     A sobra mensal já desconta a desvalorização, então ela não é dinheiro que
+     saiu do bolso: no caixa ela volta. O que fica no fim do ano é o dinheiro
+     acumulado mais o quanto o carro ainda vale. */
+  function tabelaPatrimonio(r){
+    var residual = d.valorCarro * Math.pow(1 - d.deprec / 100, 1);
+    var perda = d.valorCarro - residual;
+    var caixaP = (r.proprio.lucro + r.proprio.deprec) * 12;
+    var caixaA = r.alugar.lucro * 12;
+    var totalP = caixaP + residual;
+    var totalA = caixaA;
+
+    var t = '<thead><tr><th>Daqui a 12 meses</th><th>Alugar</th><th>Meu carro</th></tr></thead><tbody>';
+    t += '<tr><td>Dinheiro acumulado</td><td>' + reais(caixaA) + '</td><td>' + reais(caixaP) + '</td></tr>';
+    t += '<tr><td>Carro no seu nome</td><td><span class="vazio-cel">nenhum</span></td><td>' + reais(residual) + '</td></tr>';
+    t += '<tr class="total"><td>Você teria ao todo</td><td>' + reais(totalA) + '</td><td>' + reais(totalP) + '</td></tr>';
+    el("tab-patrimonio").innerHTML = t + '</tbody>';
+
+    var venceP = totalP > totalA;
+    var txt = "Sim, o carro é patrimônio — mas patrimônio que encolhe: o seu vale " + reais(perda)
+      + " a menos no fim do ano, e é por isso que a sobra mensal já cobra essa perda. "
+      + (venceP
+          ? "Somando dinheiro e carro, ficar com o seu deixa você " + reais(totalP - totalA) + " melhor em doze meses."
+          : "Mesmo somando o valor do carro, alugar deixa você " + reais(totalA - totalP) + " melhor em doze meses.")
+      + (d.parcela > 0 ? " Atenção: o financiamento ainda em aberto precisa ser descontado desse total." : "")
+      + (totalA > totalP ? " Se você já tem o carro, vender e alugar significaria trocar um bem que se desvaloriza por dinheiro em caixa." : "");
+    el("nota-patrimonio").textContent = txt;
+  }
+
+  /* ---------- avisos ---------- */
+  function avisos(r, virada, venceAlugar, diff){
+    var lista = [];
+    var alugSemana = d.periodo === "dia" ? d.aluguel * diasSemana : (d.periodo === "semana" ? d.aluguel : d.aluguel / SEM);
+
+    if (r.alugar.lucro < 0 || r.proprio.lucro < 0){
+      lista.push(["grave", "!", "Nessa jornada um dos cenários dá prejuízo",
+        "Com " + horasTexto(horasDia) + " por dia em " + diasSemana + " dias, o faturamento não cobre os custos. Reveja o ganho por hora antes de decidir qualquer coisa."]);
+    }
+
+    var margem = Math.max(Math.abs(r.alugar.lucro), Math.abs(r.proprio.lucro));
+    if (margem > 0 && Math.abs(diff) / margem < 0.10){
+      lista.push(["alerta", "≈", "A diferença é apertada",
+        "São só " + reais(Math.abs(diff)) + " por mês separando os dois. Uma revisão inesperada ou uma semana parada inverte o resultado. Nesse empate, pesem mais os riscos do que os centavos."]);
+    }
+
+    if (venceAlugar){
+      lista.push(["alerta", "!", "O aluguel corre mesmo com o carro parado",
+        "Doença, acidente, uma semana de folga: você continua devendo cerca de " + reais(alugSemana) + " por semana. Tenha uma reserva para pelo menos um mês de aluguel antes de entrar nesse caminho."]);
+      lista.push(["bom", "✓", "Você para de bancar as surpresas",
+        "Câmbio, embreagem, suspensão e a desvalorização deixam de ser problema seu — hoje eles somam " + reais(r.proprio.manut + r.proprio.deprec) + " por mês no seu carro."]);
+    } else {
+      lista.push(["alerta", "!", "Separe a manutenção antes de gastar a sobra",
+        "Sua conta reserva " + reais(r.proprio.manut) + " por mês de manutenção, mas ela chega de uma vez. Guarde esse valor todo mês numa conta à parte, ou o carro vai parar no pior dia."]);
+      lista.push(["alerta", "↓", "A desvalorização não aparece no extrato",
+        "Seu carro perde cerca de " + reais(r.proprio.deprec) + " de valor por mês rodando assim. É dinheiro real saindo, mesmo que você nunca o veja no bolso."]);
+    }
+
+    if (virada && virada.inclinacao > 0 && virada.horasDia > 4 && virada.horasDia < 14){
+      lista.push(["bom", "→", "Sua decisão depende do ritmo, não do gosto",
+        "Rodando " + diasSemana + " dias por semana, alugar só compensa acima de " + horasTexto(virada.horasDia) + " por dia. Abaixo disso, o carro próprio ganha."]);
+    }
+
+    el("avisos").innerHTML = lista.map(function(x){
+      return '<div class="aviso" style="--w-cor:var(--' + x[0] + ');--w-bg:var(--' + x[0] + '-wash)">'
+        + '<span class="ic" aria-hidden="true">' + x[1] + '</span>'
+        + '<span><b>' + x[2] + '</b><p>' + x[3] + '</p></span></div>';
+    }).join("");
+  }
+
+  /* ---------- render geral ---------- */
+  function render(){
+    var r = calcular(horasDia, diasSemana);
+    var virada = pontoDeVirada(diasSemana);
+    var diff = r.alugar.lucro - r.proprio.lucro;
+    var venceAlugar = diff > 0;
+
+    el("a-lucro").textContent = reais(r.alugar.lucro);
+    el("a-lucro").className = "valorao" + (r.alugar.lucro < 0 ? " neg" : "");
+    el("a-hora").textContent = reais2(r.alugar.hora);
+    el("a-custo").textContent = reais(r.alugar.custo);
+    el("a-ano").textContent = reais(r.alugar.lucro * 12);
+
+    el("p-lucro").textContent = reais(r.proprio.lucro);
+    el("p-lucro").className = "valorao" + (r.proprio.lucro < 0 ? " neg" : "");
+    el("p-hora").textContent = reais2(r.proprio.hora);
+    el("p-custo").textContent = reais(r.proprio.custo);
+    el("p-ano").textContent = reais(r.proprio.lucro * 12);
+
+    el("chip-alugar").hidden = !venceAlugar;
+    el("chip-proprio").hidden = venceAlugar;
+
+    var cor = venceAlugar ? "var(--alugar)" : "var(--proprio)";
+    var vd = el("veredito");
+    vd.style.setProperty("--vd", cor);
+    var quem = nome();
+    el("v-olho").textContent = (quem ? quem + ", com " : "Com ") + horasTexto(horasDia) + " por dia, " + diasSemana + " dias por semana";
+    el("v-titulo").textContent = venceAlugar ? "Vale a pena alugar" : "Vale a pena usar o seu carro";
+    el("v-titulo").style.color = cor;
+    el("v-texto").innerHTML = (venceAlugar ? "Alugar" : "Usar o seu carro")
+      + ' deixa <span class="cifra">' + reais(Math.abs(diff)) + ' a mais no seu bolso por mês</span> — '
+      + reais(Math.abs(diff) * 12) + ' ao longo de um ano. Você roda '
+      + fmtN.format(Math.round(r.kmMes)) + ' km por mês e recebe ' + reais(r.receita) + ' nos dois casos; '
+      + 'o que muda é só o custo.';
+
+    if (virada && virada.inclinacao > 0 && virada.horasDia > 4 && virada.horasDia < 14){
+      el("txt-virada").textContent = "Rodando " + diasSemana + " dias por semana, os dois caminhos empatam em "
+        + horasTexto(virada.horasDia) + " por dia. Acima disso o aluguel se dilui e passa à frente; abaixo, o custo fixo dele pesa demais e o seu carro ganha.";
+    } else if (virada && virada.inclinacao <= 0){
+      el("txt-virada").textContent = "Nos seus números, rodar mais não inverte o resultado: "
+        + (venceAlugar ? "alugar" : "usar o seu carro") + " continua à frente em qualquer jornada. Isso costuma acontecer quando o carro alugado gasta mais combustível que o seu, ou quando o aluguel já cobre tudo.";
+    } else {
+      el("txt-virada").textContent = "Dentro de uma jornada realista (4 a 14 horas por dia), "
+        + (venceAlugar ? "alugar" : "usar o seu carro") + " vence em toda a faixa. O empate ficaria fora do que dá para rodar na prática.";
+    }
+
+    desenhar(serie(diasSemana), virada);
+    tabelaCustos(r);
+    tabelaPatrimonio(r);
+    avisos(r, virada, venceAlugar, diff);
+
+    el("o-horas").textContent = horasTexto(horasDia) + " por dia";
+    el("o-dias").textContent = diasSemana + (diasSemana === 1 ? " dia" : " dias");
+  }
+
+  /* ---------- navegação ---------- */
+  function irPara(n){
+    var passos = document.querySelectorAll(".passo");
+    for (var i = 0; i < passos.length; i++){
+      passos[i].classList.toggle("on", passos[i].getAttribute("data-passo") === String(n));
+    }
+    el("pista-feita").style.width = (n * 25) + "%";
+    var rot = el("pista-passos").children;
+    for (var j = 0; j < rot.length; j++) rot[j].classList.toggle("on", j === n - 1);
+    window.scrollTo({top:0, behavior:"smooth"});
+    salvar();
+  }
+
+  function resumoJornada(){
+    var v = derivar();
+    var kmMes = v.kmSem * SEM;
+    el("resumo-jornada").textContent = "Nesse ritmo você roda cerca de " + fmtN.format(Math.round(kmMes))
+      + " km por mês — mais que o triplo do que um carro de uso pessoal anda no mesmo período. É por isso que a conta muda tanto de figura.";
+  }
+
+  /* Passo 2: devolve os números derivados, com aviso quando algo sai do razoável */
+  function renderRaioX(){
+    var v = derivar();
+    var tiles = [
+      ["Você ganha por hora",  reais2(v.ganhoHora), "", "Rodando " + fmtN.format(Math.round(v.horasSem)) + " horas na semana"],
+      ["Você ganha por km",    reais2(v.ganhoKm), "", "Já sem a taxa do app"],
+      ["Seu carro faz",        (v.kmlProp > 0 ? v.kmlProp.toFixed(1).replace(".", ",") : "—"), " km/litro", "Consumo real, não o da tabela"],
+      ["Combustível por km",   reais2(v.custoCombKm), "", "Some " + reais(v.custoCombKm * v.kmSem * SEM) + " por mês"],
+      ["Velocidade média",     fmtN.format(Math.round(v.kmHora)), " km/h", "Contando trânsito e espera"],
+      ["Sobra depois da gasolina", reais2(v.ganhoKm - v.custoCombKm), " /km", "Antes de qualquer outro custo"]
+    ];
+    el("raiox").innerHTML = tiles.map(function(t){
+      return '<div class="tile"><p class="rotulo">' + t[0] + '</p>'
+        + '<p class="val">' + t[1] + (t[2] ? '<small>' + t[2] + '</small>' : '') + '</p>'
+        + '<p class="obs">' + t[3] + '</p></div>';
+    }).join("");
+
+    var problema = "";
+    if (v.kmlProp > 0 && v.kmlProp < 6) problema = "Um consumo de " + v.kmlProp.toFixed(1).replace(".", ",") + " km/litro está bem baixo. Confira se o valor do combustível é mesmo só daquela semana.";
+    else if (v.kmlProp > 20) problema = "Um consumo de " + v.kmlProp.toFixed(1).replace(".", ",") + " km/litro está alto demais para carro a combustão. Confira o gasto de combustível da semana.";
+    else if (v.kmHora > 45) problema = "Uma média de " + Math.round(v.kmHora) + " km/h é alta para cidade. Confira os km por dia ou as horas.";
+    else if (v.ganhoHora > 0 && v.ganhoHora < 12) problema = "Menos de " + reais2(v.ganhoHora) + " por hora é pouco até para o pior mês. Confira se o valor recebido é da semana inteira.";
+    el("alerta-raiox").textContent = problema;
+    el("alerta-raiox").className = "nota atencao";
+    el("alerta-raiox").hidden = !problema;
+
+    // sugere o consumo do carro alugado a partir do consumo real do dele
+    var alvo = el("i-kml-a");
+    if (!alvo.dataset.tocado && v.kmlProp > 0){
+      alvo.value = Math.min(18, v.kmlProp + 1).toFixed(1).replace(".", ",");
+      el("dica-kml").textContent = "Sugerimos " + alvo.value + " porque carro de locadora é mais novo e faz cerca de 1 km a mais por litro que o seu. Se a locadora informar outro valor, troque.";
+    }
+  }
+
+  function notaProprio(){
+    var v = derivar();
+    var kmMes = v.kmSem * SEM;
+    var manut = num(el("i-manut").value) * kmMes;
+    var deprec = num(el("i-valor").value) * (num(el("i-deprec").value) / 100) / 12;
+    el("nota-proprio").textContent = "Rodando o quanto você roda, isso dá " + reais(manut)
+      + " de manutenção por mês e mais " + reais(deprec) + " de desvalorização — os dois custos que somem do dia a dia e aparecem de uma vez.";
+  }
+
+  function dicaPeriodo(){
+    var t = {
+      dia: "Você paga só nos dias em que rodar. É o formato mais flexível e o mais caro por dia.",
+      semana: "Formato mais comum. Atenção: a semana é cobrada inteira, mesmo se você folgar dois dias.",
+      mes: "Costuma ter o menor valor por dia, mas prende você por mais tempo."
+    };
+    el("dica-periodo").textContent = t[periodo];
+  }
+
+  /* ---------- persistência ---------- */
+  function nome(){ return (el("i-nome").value || "").trim().split(/\s+/)[0]; }
+
+  var CAMPOS = ["i-nome","i-dias","i-horas","i-kmdia","i-receb","i-combsem","i-litro","i-outros","i-alug","i-kml-a",
+                "i-valor","i-deprec","i-parcela","i-seguro","i-ipva","i-manut"];
+  function salvar(){
+    try{
+      var o = {periodo:periodo, inclui:el("i-inclui").checked};
+      CAMPOS.forEach(function(c){ o[c] = el(c).value; });
+      localStorage.setItem(CHAVE, JSON.stringify(o));
+    }catch(e){}
+  }
+  function carregar(){
+    try{
+      var o = JSON.parse(localStorage.getItem(CHAVE) || "null");
+      if (!o) return;
+      CAMPOS.forEach(function(c){ if (o[c] !== undefined) el(c).value = o[c]; });
+      if (o.inclui !== undefined) el("i-inclui").checked = o.inclui;
+      if (o.periodo) { periodo = o.periodo; marcarPeriodo(); }
+    }catch(e){}
+  }
+  function marcarPeriodo(){
+    var bs = el("seg-periodo").querySelectorAll("button");
+    for (var i = 0; i < bs.length; i++){
+      bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-per") === periodo));
+    }
+    dicaPeriodo();
+  }
+
+  /* ---------- ligações ---------- */
+  document.querySelectorAll("[data-ir]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var n = Number(b.getAttribute("data-ir"));
+      if (n === 2) renderRaioX();
+      if (n === 4) notaProprio();
+      irPara(n);
+    });
+  });
+
+  var perfil = "rodo";
+  el("seg-perfil").addEventListener("click", function(ev){
+    var b = ev.target.closest("button"); if (!b) return;
+    perfil = b.getAttribute("data-perfil");
+    var bs = this.querySelectorAll("button");
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute("aria-pressed", String(bs[i] === b));
+
+    var novo = perfil === "novo";
+    el("tit-p1").textContent = novo ? "Quanto você pretende rodar?" : "Me conta como foi a sua última semana";
+    el("sub-p1").textContent = novo
+      ? "Como você ainda não começou, preenchemos com a média de quem roda meio período nas capitais. Ajuste para o que você imagina fazer — depois é só voltar aqui e corrigir com os seus números reais."
+      : "Nada de conta difícil. Pegue o extrato do app e a nota do posto: com esses cinco números a gente descobre todo o resto sozinho.";
+    document.querySelector('label[for="i-receb"]').firstChild.nodeValue = novo ? "Quanto espera receber na semana" : "Quanto você recebeu na semana";
+    document.querySelector('label[for="i-combsem"]').firstChild.nodeValue = novo ? "Quanto gastaria de combustível na semana" : "Quanto você gastou de combustível na semana";
+    document.querySelector('label[for="i-kmdia"]').firstChild.nodeValue = novo ? "Quantos km pretende rodar por dia" : "Quantos km você rodou por dia";
+
+    if (novo){
+      el("i-dias").value = "5"; el("i-horas").value = "5"; el("i-kmdia").value = "95";
+      el("i-receb").value = "700"; el("i-combsem").value = "290";
+    }
+    resumoJornada(); salvar();
+  });
+
+  el("seg-manut").addEventListener("click", function(ev){
+    var b = ev.target.closest("button"); if (!b) return;
+    var bs = this.querySelectorAll("button");
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute("aria-pressed", String(bs[i] === b));
+    el("i-manut").value = Number(b.getAttribute("data-manut")).toFixed(2).replace(".", ",");
+    notaProprio(); salvar();
+  });
+
+  el("i-kml-a").addEventListener("input", function(){ this.dataset.tocado = "1"; });
+  ["i-manut","i-valor","i-deprec"].forEach(function(c){
+    el(c).addEventListener("input", notaProprio);
+  });
+
+  el("seg-periodo").addEventListener("click", function(ev){
+    var b = ev.target.closest("button"); if (!b) return;
+    periodo = b.getAttribute("data-per"); marcarPeriodo(); salvar();
+  });
+
+  ["i-horas","i-dias","i-kmdia"].forEach(function(c){
+    el(c).addEventListener("input", resumoJornada);
+  });
+  CAMPOS.forEach(function(c){ el(c).addEventListener("input", salvar); });
+  el("i-inclui").addEventListener("change", salvar);
+
+  el("btn-calcular").addEventListener("click", function(){
+    d = lerDados();
+    horasDia = Math.min(14, Math.max(4, d.horasDia || 10));
+    diasSemana = Math.min(7, Math.max(1, Math.round(d.diasSemana || 6)));
+    el("s-horas").value = horasDia;
+    el("s-dias").value = diasSemana;
+    el("tela-form").hidden = true;
+    el("pista").hidden = true;
+    el("tela-resultado").classList.add("on");
+    el("wrap").classList.add("largo");
+    render();
+    window.scrollTo({top:0, behavior:"smooth"});
+    salvar();
+  });
+
+  el("s-horas").addEventListener("input", function(){ horasDia = Number(this.value); render(); });
+  el("s-dias").addEventListener("input", function(){ diasSemana = Number(this.value); render(); });
+
+  el("btn-voltar").addEventListener("click", function(){
+    el("tela-resultado").classList.remove("on");
+    el("wrap").classList.remove("largo");
+    el("tela-form").hidden = false;
+    el("pista").hidden = false;
+    irPara(1);
+  });
+
+  el("btn-limpar").addEventListener("click", function(){
+    try{ localStorage.removeItem(CHAVE); }catch(e){}
+    location.reload();
+  });
+
+  el("btn-comecar").addEventListener("click", function(){
+    el("tela-home").hidden = true;
+    el("tela-form").hidden = false;
+    el("pista").hidden = false;
+    irPara(1);
+    salvar();
+  });
+
+  el("i-nome").addEventListener("input", salvar);
+
+  el("btn-tema").addEventListener("click", function(){
+    var atual = document.documentElement.getAttribute("data-theme");
+    var escuro = atual ? atual === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.setAttribute("data-theme", escuro ? "light" : "dark");
+    if (el("tela-resultado").classList.contains("on")) render();
+  });
+
+  window.addEventListener("resize", function(){
+    if (el("tela-resultado").classList.contains("on")) render();
+  });
+
+  carregar();
+  resumoJornada();
+  notaProprio();
+  dicaPeriodo();
+})();
+</script>
