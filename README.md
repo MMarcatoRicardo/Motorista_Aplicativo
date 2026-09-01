@@ -122,7 +122,7 @@ Todo o desenvolvimento seguiu o mesmo fluxo, sem commits diretos na `main`:
 
 ## Licença
 
-Distribuído sob a Licença MIT. Veja [LICENSE](LICENSE) para mais informações.
+Distribuído sob a Licença MIT. Veja [LICENSE](LICENSE.txt) para mais informações.
 
 ---
 
