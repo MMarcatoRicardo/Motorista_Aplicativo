@@ -248,8 +248,9 @@ h2.tit.grande{font-size:clamp(32px,8vw,44px);margin-bottom:12px}
 }
 
 /* raio-x da semana */
-.raiox{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-@media (max-width:420px){.raiox{grid-template-columns:1fr}}
+.raiox{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media (max-width:720px){.raiox{grid-template-columns:1fr 1fr}}
+@media (max-width:400px){.raiox{grid-template-columns:1fr}}
 .raiox .tile{background:var(--surface);padding:14px 16px}
 .raiox .tile p{margin:0}
 .raiox .tile .rotulo{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
@@ -400,6 +401,59 @@ details.tabela-gr summary:hover{color:var(--ink)}
 
 .rodape{margin-top:26px;color:var(--ink-3);font-size:12.5px;max-width:70ch}
 .rodape a{color:var(--ink-2)}
+
+
+/* logo */
+.logo{width:26px;height:26px;flex:none;color:var(--ink)}
+.logo-grande{margin-bottom:22px}
+.logo-grande .logo{width:56px;height:56px}
+
+/* capa limpa */
+.capa{padding:7vh 4px 0;max-width:420px;margin:0 auto}
+h2.tit.grande{font-size:clamp(34px,9vw,46px);margin-bottom:12px}
+.capa .sub{margin-bottom:30px}
+.capa-campo{margin-bottom:20px}
+.capa .btn{width:100%}
+
+/* segmento em coluna */
+.segmento.coluna{flex-direction:column}
+.segmento.coluna button{border-right:0;border-bottom:1px solid var(--line);text-align:left;padding:13px 14px}
+.segmento.coluna button:last-child{border-bottom:0}
+#seg-perfil{margin-bottom:22px}
+
+/* a conta do cenario: entra menos sai igual sobra */
+.conta{display:grid;gap:6px;margin-bottom:12px}
+.cl{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14.5px}
+.cl span{color:var(--ink-2)}
+.cl b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:16px}
+.cl.saida b{color:var(--ink-2)}
+
+.barra{display:flex;gap:2px;height:14px;margin-bottom:7px}
+.barra i{display:block;border-radius:2px}
+.barra i:first-child{border-radius:4px 2px 2px 4px}
+.barra i:last-child{border-radius:2px 4px 4px 2px}
+.barra .p-custo{background:var(--surface-2);border:1px solid var(--line)}
+.barra .p-sobra{background:var(--cor)}
+.barra-leg{display:flex;gap:14px;font-size:11.5px;color:var(--ink-3);margin-bottom:14px}
+.barra-leg span{display:flex;align-items:center;gap:5px}
+.sw{width:9px;height:9px;border-radius:2px;display:block}
+.sw-custo{background:var(--surface-2);border:1px solid var(--line)}
+.sw-sobra{background:var(--cor)}
+
+.sobra-cx{padding-top:13px;border-top:1px solid var(--line)}
+.sobra-cx .valorao{margin:2px 0 3px}
+.sobra-cx .obs{margin:0;font-size:13px;color:var(--ink-3)}
+
+/* patrimonio */
+.patr{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--cor);border-radius:var(--r);padding:16px 18px 18px}
+.patr h4{font-family:"Barlow Condensed","Barlow",sans-serif;font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px}
+.patr .pl{display:flex;justify-content:space-between;gap:10px;font-size:14.5px;padding:8px 0;border-bottom:1px solid var(--line)}
+.patr .pl span{color:var(--ink-2)}
+.patr .pl b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.patr .pl.neg b{color:var(--grave)}
+.patr .pt{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding-top:12px}
+.patr .pt span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.patr .pt b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:22px}
 
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important;animation:none !important}
@@ -558,7 +612,7 @@ details.tabela-gr summary:hover{color:var(--ink)}
 
         <div class="campo" style="margin-bottom:20px">
           <label>Sua situação hoje</label>
-          <div class="segmento coluna" id="seg-situação" role="group" aria-label="Situacao do carro">
+          <div class="segmento coluna" id="seg-situacao" role="group" aria-label="Situacao do carro">
             <button type="button" data-sit="quitado" aria-pressed="true">Já tenho, está quitado</button>
             <button type="button" data-sit="pagando" aria-pressed="false">Tenho, ainda estou pagando</button>
             <button type="button" data-sit="nenhum" aria-pressed="false">Não tenho carro</button>
@@ -769,7 +823,9 @@ details.tabela-gr summary:hover{color:var(--ink)}
   }
 
   /* ---------- leitura dos campos ---------- */
+  var perfil = "rodo";
   var periodo = "semana";
+  var situacao = "quitado";   // quitado | pagando | nenhum
 
   /* Deriva os números técnicos a partir dos fatos que o motorista sabe de cor:
      dias, horas, km por dia, o que recebeu e o que gastou de combustível. */
@@ -812,10 +868,12 @@ details.tabela-gr summary:hover{color:var(--ink)}
       inclui:    el("i-inclui").checked,
       valorCarro:num(el("i-valor").value),
       deprec:    num(el("i-deprec").value),
-      parcela:   num(el("i-parcela").value),
+      parcela:   situacao === "quitado" ? 0 : num(el("i-parcela").value),
       seguro:    num(el("i-seguro").value),
       ipva:      num(el("i-ipva").value),
-      manutKm:   num(el("i-manut").value)
+      manutKm:   num(el("i-manut").value),
+      situacao:  situacao,
+      saldo:     situacao === "quitado" ? 0 : num(el("i-saldo").value)
     };
   }
 
@@ -1034,32 +1092,46 @@ details.tabela-gr summary:hover{color:var(--ink)}
   }
 
   /* ---------- patrimônio em 12 meses ----------
-     A sobra mensal já desconta a desvalorização, então ela não é dinheiro que
-     saiu do bolso: no caixa ela volta. O que fica no fim do ano é o dinheiro
-     acumulado mais o quanto o carro ainda vale. */
+     A sobra mensal já desconta a desvalorização, mas desvalorização não é
+     dinheiro que sai do bolso: no caixa ela volta. O que fica no fim do ano
+     é o dinheiro guardado mais o quanto o carro ainda vale, menos a dívida. */
   function tabelaPatrimonio(r){
-    var residual = d.valorCarro * Math.pow(1 - d.deprec / 100, 1);
-    var perda = d.valorCarro - residual;
-    var caixaP = (r.proprio.lucro + r.proprio.deprec) * 12;
-    var caixaA = r.alugar.lucro * 12;
-    var totalP = caixaP + residual;
-    var totalA = caixaA;
+    var residual   = d.valorCarro * (1 - d.deprec / 100);
+    var caixaA     = r.alugar.lucro * 12;
+    var caixaP     = (r.proprio.lucro + r.proprio.deprec) * 12;
+    var dividaFim  = Math.max(0, d.saldo - d.parcela * 12);
+    var entrada    = d.situacao === "nenhum" ? Math.max(0, d.valorCarro - d.saldo) : 0;
+    var totalA     = caixaA;
+    var totalP     = caixaP + residual - dividaFim - entrada;
 
-    var t = '<thead><tr><th>Daqui a 12 meses</th><th>Alugar</th><th>Meu carro</th></tr></thead><tbody>';
-    t += '<tr><td>Dinheiro acumulado</td><td>' + reais(caixaA) + '</td><td>' + reais(caixaP) + '</td></tr>';
-    t += '<tr><td>Carro no seu nome</td><td><span class="vazio-cel">nenhum</span></td><td>' + reais(residual) + '</td></tr>';
-    t += '<tr class="total"><td>Você teria ao todo</td><td>' + reais(totalA) + '</td><td>' + reais(totalP) + '</td></tr>';
-    el("tab-patrimonio").innerHTML = t + '</tbody>';
+    function bloco(cor, titulo, linhas, total){
+      var h = '<div class="patr" style="--cor:var(--' + cor + ')"><h4>' + titulo + '</h4>';
+      linhas.forEach(function(l){
+        h += '<div class="pl' + (l[2] ? ' neg' : '') + '"><span>' + l[0] + '</span><b>' + l[1] + '</b></div>';
+      });
+      return h + '<div class="pt"><span>Você teria</span><b>' + reais(total) + '</b></div></div>';
+    }
 
-    var venceP = totalP > totalA;
-    var txt = "Sim, o carro é patrimônio — mas patrimônio que encolhe: o seu vale " + reais(perda)
-      + " a menos no fim do ano, e é por isso que a sobra mensal já cobra essa perda. "
-      + (venceP
-          ? "Somando dinheiro e carro, ficar com o seu deixa você " + reais(totalP - totalA) + " melhor em doze meses."
-          : "Mesmo somando o valor do carro, alugar deixa você " + reais(totalA - totalP) + " melhor em doze meses.")
-      + (d.parcela > 0 ? " Atenção: o financiamento ainda em aberto precisa ser descontado desse total." : "")
-      + (totalA > totalP ? " Se você já tem o carro, vender e alugar significaria trocar um bem que se desvaloriza por dinheiro em caixa." : "");
-    el("nota-patrimonio").textContent = txt;
+    var linhasA = [["Dinheiro guardado", reais(caixaA), false],
+                   ["Carro no seu nome", "nenhum", false]];
+    var linhasP = [["Dinheiro guardado", reais(caixaP), false],
+                   ["Carro, que ainda vale", reais(residual), false]];
+    if (entrada > 0)   linhasP.push(["Entrada que você daria", "− " + reais(entrada), true]);
+    if (dividaFim > 0) linhasP.push(["Dívida que ainda resta", "− " + reais(dividaFim), true]);
+
+    el("patr-cx").innerHTML = bloco("alugar", "Alugando", linhasA, totalA)
+                            + bloco("proprio", "Com carro próprio", linhasP, totalP);
+
+    el("patr-intro").textContent = "\"Alugando eu pago e não fica nada; comprando, pelo menos o carro é meu.\" "
+      + "Então vamos somar as duas coisas: o dinheiro que você junta mês a mês mais o que teria no pátio depois de um ano.";
+
+    var quem  = nome();
+    var vence = totalP > totalA;
+    el("nota-patrimonio").textContent = (quem ? quem + ", somando " : "Somando ")
+      + "dinheiro e carro, " + (vence ? "ficar com o carro próprio" : "alugar")
+      + " deixa você " + reais(Math.abs(totalP - totalA)) + " melhor daqui a um ano. "
+      + "Só que repare: o carro perde " + reais(d.valorCarro - residual) + " de valor nesse mesmo ano. "
+      + "Ele é patrimônio, sim, mas patrimônio que encolhe — e é essa perda que a sobra mensal já cobra.";
   }
 
   /* ---------- avisos ---------- */
@@ -1102,6 +1174,21 @@ details.tabela-gr summary:hover{color:var(--ink)}
     }).join("");
   }
 
+  /* ---------- cartao de cenario: o que entra, o que sai, o que sobra ---------- */
+  function pintarCartao(id, receita, c){
+    el(id + "-receita").textContent = reais(receita);
+    el(id + "-custo").textContent = reais(c.custo);
+    el(id + "-lucro").textContent = reais(c.lucro);
+    el(id + "-lucro").className = "valorao" + (c.lucro < 0 ? " neg" : "");
+    el(id + "-hora").textContent = reais2(c.hora);
+    el(id + "-ano").textContent = reais(c.lucro * 12);
+
+    var base = Math.max(receita, c.custo) || 1;
+    var pc = Math.max(0, Math.min(100, c.custo / base * 100));
+    el(id + "-bc").style.flex = "0 0 " + pc + "%";
+    el(id + "-bs").style.flex = "0 0 " + Math.max(0, 100 - pc) + "%";
+  }
+
   /* ---------- render geral ---------- */
   function render(){
     var r = calcular(horasDia, diasSemana);
@@ -1109,17 +1196,8 @@ details.tabela-gr summary:hover{color:var(--ink)}
     var diff = r.alugar.lucro - r.proprio.lucro;
     var venceAlugar = diff > 0;
 
-    el("a-lucro").textContent = reais(r.alugar.lucro);
-    el("a-lucro").className = "valorao" + (r.alugar.lucro < 0 ? " neg" : "");
-    el("a-hora").textContent = reais2(r.alugar.hora);
-    el("a-custo").textContent = reais(r.alugar.custo);
-    el("a-ano").textContent = reais(r.alugar.lucro * 12);
-
-    el("p-lucro").textContent = reais(r.proprio.lucro);
-    el("p-lucro").className = "valorao" + (r.proprio.lucro < 0 ? " neg" : "");
-    el("p-hora").textContent = reais2(r.proprio.hora);
-    el("p-custo").textContent = reais(r.proprio.custo);
-    el("p-ano").textContent = reais(r.proprio.lucro * 12);
+    pintarCartao("a", r.receita, r.alugar);
+    pintarCartao("p", r.receita, r.proprio);
 
     el("chip-alugar").hidden = !venceAlugar;
     el("chip-proprio").hidden = venceAlugar;
@@ -1216,8 +1294,12 @@ details.tabela-gr summary:hover{color:var(--ink)}
     var kmMes = v.kmSem * SEM;
     var manut = num(el("i-manut").value) * kmMes;
     var deprec = num(el("i-valor").value) * (num(el("i-deprec").value) / 100) / 12;
+    var extra = situacao === "nenhum"
+      ? " Como você ainda não tem o carro, a entrada e as parcelas também entram no resultado."
+      : (situacao === "pagando" ? " A dívida que ainda resta será descontada no fim da conta." : "");
     el("nota-proprio").textContent = "Rodando o quanto você roda, isso dá " + reais(manut)
-      + " de manutenção por mês e mais " + reais(deprec) + " de desvalorização — os dois custos que somem do dia a dia e aparecem de uma vez.";
+      + " de manutenção por mês e mais " + reais(deprec)
+      + " de desvalorização — os dois custos que somem do dia a dia e aparecem de uma vez." + extra;
   }
 
   function dicaPeriodo(){
@@ -1233,10 +1315,10 @@ details.tabela-gr summary:hover{color:var(--ink)}
   function nome(){ return (el("i-nome").value || "").trim().split(/\s+/)[0]; }
 
   var CAMPOS = ["i-nome","i-dias","i-horas","i-kmdia","i-receb","i-combsem","i-litro","i-outros","i-alug","i-kml-a",
-                "i-valor","i-deprec","i-parcela","i-seguro","i-ipva","i-manut"];
+                "i-valor","i-deprec","i-parcela","i-saldo","i-seguro","i-ipva","i-manut"];
   function salvar(){
     try{
-      var o = {periodo:periodo, inclui:el("i-inclui").checked};
+      var o = {periodo:periodo, situacao:situacao, perfil:perfil, inclui:el("i-inclui").checked};
       CAMPOS.forEach(function(c){ o[c] = el(c).value; });
       localStorage.setItem(CHAVE, JSON.stringify(o));
     }catch(e){}
@@ -1248,6 +1330,7 @@ details.tabela-gr summary:hover{color:var(--ink)}
       CAMPOS.forEach(function(c){ if (o[c] !== undefined) el(c).value = o[c]; });
       if (o.inclui !== undefined) el("i-inclui").checked = o.inclui;
       if (o.periodo) { periodo = o.periodo; marcarPeriodo(); }
+      if (o.situacao) situacao = o.situacao;
     }catch(e){}
   }
   function marcarPeriodo(){
@@ -1268,7 +1351,6 @@ details.tabela-gr summary:hover{color:var(--ink)}
     });
   });
 
-  var perfil = "rodo";
   el("seg-perfil").addEventListener("click", function(ev){
     var b = ev.target.closest("button"); if (!b) return;
     perfil = b.getAttribute("data-perfil");
@@ -1289,6 +1371,40 @@ details.tabela-gr summary:hover{color:var(--ink)}
       el("i-receb").value = "700"; el("i-combsem").value = "290";
     }
     resumoJornada(); salvar();
+  });
+
+  var SITUACOES = {
+    quitado: {tit:"O seu carro", sub:"Aqui entram os custos que somem do dia a dia e voltam de uma vez.",
+              valor:"Quanto vale hoje", divida:false},
+    pagando: {tit:"O seu carro financiado", sub:"A parcela sai do seu bolso todo mês; a dívida ainda em aberto entra no fim da conta.",
+              valor:"Quanto vale hoje", divida:true},
+    nenhum:  {tit:"O carro que você compraria", sub:"Você ainda não tem carro, então entram também a entrada e as parcelas de comprar um.",
+              valor:"Preço do carro", divida:true}
+  };
+
+  function aplicarSituacao(){
+    var c = SITUACOES[situacao];
+    el("tit-p4").textContent = c.tit;
+    el("sub-p4").textContent = c.sub;
+    el("lab-valor").textContent = c.valor;
+    el("lab-saldo").textContent = situacao === "nenhum" ? "Quanto financiaria" : "Ainda deve";
+    el("lab-parcela").textContent = situacao === "nenhum" ? "Parcela que pagaria" : "Parcela";
+    document.querySelector(".so-divida").hidden = !c.divida;
+
+    var bs = el("seg-situacao").querySelectorAll("button");
+    for (var i = 0; i < bs.length; i++){
+      bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-sit") === situacao));
+    }
+    if (situacao === "nenhum" && num(el("i-saldo").value) === 0){
+      el("i-saldo").value = "45000"; el("i-parcela").value = "1200";
+    }
+    notaProprio();
+  }
+
+  el("seg-situacao").addEventListener("click", function(ev){
+    var b = ev.target.closest("button"); if (!b) return;
+    situacao = b.getAttribute("data-sit");
+    aplicarSituacao(); salvar();
   });
 
   el("seg-manut").addEventListener("click", function(ev){
@@ -1370,7 +1486,7 @@ details.tabela-gr summary:hover{color:var(--ink)}
 
   carregar();
   resumoJornada();
-  notaProprio();
+  aplicarSituacao();
   dicaPeriodo();
 })();
 </script>
