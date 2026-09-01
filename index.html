@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rota Certa — Alugar ou usar o meu?</title>
+<meta name="description" content="Calculadora que mostra ao motorista de aplicativo se compensa mais alugar um carro ou rodar com o próprio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-in">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 30V21" stroke="currentColor" stroke-width="3.4"/>
+      <path d="M16 21c0-5-7-5.5-8.6-12.4" stroke="var(--alugar)" stroke-width="3.4"/>
+      <path d="M16 21c0-5 7-5.5 8.6-12.4" stroke="var(--proprio)" stroke-width="3.4"/>
+      <circle cx="6.6" cy="5" r="2.6" fill="var(--alugar)"/>
+      <circle cx="25.4" cy="5" r="2.6" fill="var(--proprio)"/>
+    </svg>
+    <h1 class="marca" style="font-size:21px">Rota Certa<small>Motorista de aplicativo</small></h1>
+    <nav class="nav">
+      <a href="index.html" aria-current="page">Início</a>
+      <a href="funcionalidades.html">Funcionalidades</a>
+      <a href="equipe.html">Quem somos</a>
+      <a href="contato.html">Contato</a>
+      <a href="app/">Abrir o app</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================================================================
+       SEÇÃO 1 — HERO E APRESENTAÇÃO DO PROJETO
+       Responsável: Ricardo Marcato (líder)
+       ================================================================ -->
+  <section class="secao">
+    <span class="selo">Projeto da equipe · Grupo Rota Certa</span>
+    <h1>A conta que decide se vale mais alugar um carro ou rodar com o seu</h1>
+    <p class="lead">
+      O Rota Certa é uma calculadora web para quem quer dirigir por aplicativo como renda extra.
+      Em menos de dois minutos ela mostra, em reais, qual dos dois caminhos deixa mais dinheiro
+      no bolso ao fim do mês — e a partir de quantas horas por dia a resposta muda.
+    </p>
+
+    <div class="botoes">
+      <a class="btn" href="app/">Testar a calculadora</a>
+      <a class="btn vazio" href="funcionalidades.html">Ver o que ela faz</a>
+    </div>
+  </section>
+
+  <!-- O problema -->
+  <section class="secao">
+    <p class="olho">O problema</p>
+    <h2>Uma decisão de milhares de reais tomada no chute</h2>
+    <p>
+      Quem começa a dirigir por aplicativo enfrenta logo a mesma dúvida: alugar um carro por
+      semana ou usar o que já tem na garagem. A escolha errada custa centenas de reais por mês,
+      e ela é quase sempre feita no feeling — porque fazer essa conta direito exige juntar
+      números que ninguém tem na ponta da língua.
+    </p>
+
+    <div class="grade g2" style="margin-top:24px">
+      <div class="cartao">
+        <h3>Quem aluga</h3>
+        <p style="margin:0">
+          Enxerga só a diária. Esquece que a semana é cobrada inteira mesmo com o carro parado,
+          e que uma folga, uma gripe ou uma batida continuam custando aluguel.
+        </p>
+      </div>
+      <div class="cartao">
+        <h3>Quem usa o próprio</h3>
+        <p style="margin:0">
+          Acha que o custo é só a gasolina. Não contabiliza a manutenção que ainda vai chegar
+          nem a desvalorização do carro — dois gastos reais que não aparecem no extrato.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A solução -->
+  <section class="secao">
+    <p class="olho">A solução</p>
+    <h2>Perguntamos só o que o motorista já sabe</h2>
+    <p>
+      Nenhuma calculadora pergunta "qual seu custo por quilômetro", porque ninguém sabe responder.
+      O Rota Certa pergunta quantos dias rodou, quantas horas por dia, quantos quilômetros fez,
+      quanto recebeu e quanto gastou de combustível. Desses cinco fatos ele deriva sozinho o
+      ganho por hora, o consumo real do carro e o custo por quilômetro.
+    </p>
+    <p class="nota">
+      O resultado não é um "sim" ou "não" genérico: é a sobra em reais nos dois cenários, o
+      ponto exato em que a resposta se inverte e uma projeção de patrimônio em doze meses.
+    </p>
+  </section>
+
+  <!-- Público-alvo -->
+  <section class="secao">
+    <p class="olho">Público-alvo</p>
+    <h2>Para quem construímos</h2>
+
+    <div class="grade g3" style="margin-top:20px">
+      <div class="cartao">
+        <div class="marcador" aria-hidden="true">🚗</div>
+        <h3 style="margin-top:14px">Quem quer começar</h3>
+        <p style="margin:0">
+          Pessoas empregadas que pensam em rodar à noite ou no fim de semana para complementar
+          a renda, e precisam saber se compensa antes de assinar contrato com uma locadora.
+        </p>
+      </div>
+      <div class="cartao">
+        <div class="marcador" aria-hidden="true">🔑</div>
+        <h3 style="margin-top:14px">Quem já roda alugado</h3>
+        <p style="margin:0">
+          Motoristas que pagam aluguel há meses e querem descobrir se comprar um carro usado
+          sairia mais barato no fim das contas.
+        </p>
+      </div>
+      <div class="cartao">
+        <div class="marcador" aria-hidden="true">📉</div>
+        <h3 style="margin-top:14px">Quem roda com o próprio</h3>
+        <p style="margin:0">
+          Quem sente que o carro está se acabando e quer medir, em reais, quanto a manutenção
+          e a desvalorização estão comendo do faturamento.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proposta de valor -->
+  <section class="secao">
+    <p class="olho">Proposta de valor</p>
+    <h2>Por que este projeto se sustenta</h2>
+
+    <div class="tab-cx">
+      <table>
+        <thead>
+          <tr><th>O que existe hoje</th><th>O que o Rota Certa faz</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Planilhas que pedem custo por km, valor que ninguém conhece</td>
+            <td>Pergunta o gasto de combustível da semana e calcula o custo por km sozinho</td>
+          </tr>
+          <tr>
+            <td>Vídeos com a experiência de um motorista específico</td>
+            <td>Usa os números reais de quem está usando, não a média de outra pessoa</td>
+          </tr>
+          <tr>
+            <td>Simuladores que ignoram desvalorização e manutenção</td>
+            <td>Cobra os dois na conta e ainda projeta o patrimônio em doze meses</td>
+          </tr>
+          <tr>
+            <td>Respostas fechadas do tipo "alugar é melhor"</td>
+            <td>Mostra o ponto de virada: a partir de quantas horas por dia a resposta muda</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="botoes">
+      <a class="btn" href="app/">Abrir a calculadora</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="rodape-in">
+    <p><strong>Rota Certa</strong> — projeto acadêmico desenvolvido em equipe.</p>
+    <p>Seção de apresentação sob responsabilidade de Ricardo Marcato.</p>
+  </div>
+</footer>
+
+</body>
+</html>
