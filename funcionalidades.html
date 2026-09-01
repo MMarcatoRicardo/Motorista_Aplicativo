@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funcionalidades — Rota Certa</title>
+<meta name="description" content="Os cinco recursos principais da calculadora Rota Certa para motoristas de aplicativo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .recurso{display:flex; gap:16px; align-items:flex-start}
+  .recurso .marcador{font-size:20px}
+  .recurso h3{margin-bottom:6px}
+  .recurso p{margin:0}
+  .passos{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:2px;
+    counter-reset:passo; border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
+  .passos li{background:var(--surface); padding:16px 18px; display:flex; gap:14px; align-items:flex-start;
+    border-bottom:1px solid var(--line)}
+  .passos li:last-child{border-bottom:0}
+  .passos li::before{
+    counter-increment:passo; content:counter(passo);
+    flex:none; width:26px; height:26px; border-radius:50%; background:var(--ink); color:var(--surface);
+    display:grid; place-items:center; font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600;
+  }
+  .passos b{display:block}
+  .passos span{color:var(--ink-2); font-size:14.5px}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-in">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 30V21" stroke="currentColor" stroke-width="3.4"/>
+      <path d="M16 21c0-5-7-5.5-8.6-12.4" stroke="var(--alugar)" stroke-width="3.4"/>
+      <path d="M16 21c0-5 7-5.5 8.6-12.4" stroke="var(--proprio)" stroke-width="3.4"/>
+      <circle cx="6.6" cy="5" r="2.6" fill="var(--alugar)"/>
+      <circle cx="25.4" cy="5" r="2.6" fill="var(--proprio)"/>
+    </svg>
+    <h1 class="marca" style="font-size:21px">Rota Certa<small>Motorista de aplicativo</small></h1>
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="funcionalidades.html" aria-current="page">Funcionalidades</a>
+      <a href="equipe.html">Quem somos</a>
+      <a href="contato.html">Contato</a>
+      <a href="app/">Abrir o app</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================================================================
+       SEÇÃO 2 — FUNCIONALIDADES PRINCIPAIS
+       Responsável: Vinícius Baliski
+       ================================================================ -->
+  <section class="secao">
+    <p class="olho">Funcionalidades</p>
+    <h2>Cinco recursos, uma resposta</h2>
+    <p class="lead">
+      Cada recurso existe para responder a uma pergunta que o motorista realmente faz.
+      Nada de tela bonita sem função.
+    </p>
+  </section>
+
+  <section class="secao">
+    <div class="grade g2">
+
+      <div class="cartao recurso">
+        <div class="marcador" aria-hidden="true">🧮</div>
+        <div>
+          <h3>Raio-X da sua semana</h3>
+          <p>
+            Você informa apenas dias trabalhados, horas por dia, quilômetros rodados, quanto
+            recebeu e quanto gastou de combustível. O app calcula sozinho o seu ganho por hora,
+            o ganho por quilômetro e o <strong>consumo real do carro em km por litro</strong> —
+            que quase nunca bate com o número da tabela do fabricante.
+          </p>
+        </div>
+      </div>
+
+      <div class="cartao recurso">
+        <div class="marcador" aria-hidden="true">⚖️</div>
+        <div>
+          <h3>Comparativo lado a lado</h3>
+          <p>
+            Dois cartões mostram a conta inteira: o que entra no mês, o que sai e o que sobra
+            de fato. Uma barra proporcional deixa visível quanto do faturamento vira custo,
+            junto com a sobra por hora rodada e o total no ano.
+          </p>
+        </div>
+      </div>
+
+      <div class="cartao recurso">
+        <div class="marcador" aria-hidden="true">📈</div>
+        <div>
+          <h3>Ponto de virada</h3>
+          <p>
+            Um gráfico mostra a sobra mensal dos dois cenários conforme a jornada aumenta, e
+            marca a hora exata em que as linhas se cruzam. É a resposta para
+            <em>"a partir de quanto tempo rodando o aluguel passa a compensar?"</em>
+          </p>
+        </div>
+      </div>
+
+      <div class="cartao recurso">
+        <div class="marcador" aria-hidden="true">🎚️</div>
+        <div>
+          <h3>Simulação ao vivo</h3>
+          <p>
+            Dois controles deslizantes mudam horas por dia e dias por semana. Todos os números,
+            o gráfico e a projeção se recalculam na hora, para testar cenários antes de assumir
+            qualquer compromisso.
+          </p>
+        </div>
+      </div>
+
+      <div class="cartao recurso">
+        <div class="marcador" aria-hidden="true">🏦</div>
+        <div>
+          <h3>Projeção de patrimônio</h3>
+          <p>
+            Responde à objeção mais comum — <em>"comprando, pelo menos o carro é meu"</em> —
+            somando o dinheiro guardado ao valor que o carro ainda terá em doze meses,
+            já descontadas a entrada e a dívida em aberto.
+          </p>
+        </div>
+      </div>
+
+      <div class="cartao recurso">
+        <div class="marcador" aria-hidden="true">📵</div>
+        <div>
+          <h3>Funciona sem internet</h3>
+          <p>
+            Tudo roda no próprio navegador e os dados ficam salvos no aparelho. Nada é enviado
+            para servidor nenhum — importante para quem preenche informação financeira dentro
+            do carro, muitas vezes sem sinal.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="secao">
+    <p class="olho">Como funciona na prática</p>
+    <h2>Do primeiro toque à decisão</h2>
+    <ol class="passos">
+      <li><div><b>Você coloca seu nome</b><span>A tela inicial pede só isso, para o resultado sair personalizado.</span></div></li>
+      <li><div><b>Conta como foi sua última semana</b><span>Ou, se ainda não começou a rodar, quanto pretende trabalhar.</span></div></li>
+      <li><div><b>Confere o raio-X</b><span>O app devolve seu ganho por hora e o consumo real, e avisa se algum número parece errado.</span></div></li>
+      <li><div><b>Informa os dois cenários</b><span>O valor do aluguel pesquisado e os custos do seu carro.</span></div></li>
+      <li><div><b>Recebe o veredito</b><span>Quanto sobra em cada caminho, o ponto de virada e o que considerar antes de decidir.</span></div></li>
+    </ol>
+
+    <div class="botoes">
+      <a class="btn" href="app/">Testar agora</a>
+      <a class="btn vazio" href="equipe.html">Conhecer a equipe</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="rodape-in">
+    <p><strong>Rota Certa</strong> — projeto acadêmico desenvolvido em equipe.</p>
+    <p>Seção de funcionalidades sob responsabilidade de Vinícius Baliski.</p>
+  </div>
+</footer>
+
+</body>
+</html>
