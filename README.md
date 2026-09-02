@@ -99,10 +99,10 @@ página [Quem somos](equipe.html), preenchidos por cada um em seu próprio commi
 
 | Integrante | Função no projeto |
 |---|---|
-| Ricardo Marcato | Líder — apresentação do projeto |
+| Ricardo Marcato | Aplicação e apresentação |
 | Vinícius Baliski | Funcionalidades |
 | Davi Taniguchi | Mural da equipe |
-| Erik Comegno | Contato e aplicação |
+| Erik Comegno | Contato e design |
 | Luiz Matheus | Documentação |
 
 O histórico de contribuições de cada integrante está em [Insights › Contributors](https://github.com/MMarcatoRicardo/Motorista_Aplicativo/graphs/contributors).
