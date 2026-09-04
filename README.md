@@ -104,6 +104,7 @@ página [Quem somos](equipe.html), preenchidos por cada um em seu próprio commi
 | Davi Taniguchi | Mural da equipe |
 | Erik Comegno | Contato e design |
 | Luiz Matheus | Documentação |
+| Vinícius Vidal | Configuração do repositório |
 
 O histórico de contribuições de cada integrante está em [Insights › Contributors](https://github.com/MMarcatoRicardo/Motorista_Aplicativo/graphs/contributors).
 
